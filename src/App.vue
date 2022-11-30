@@ -1,13 +1,16 @@
 <script setup lang="ts">
 import { get_list } from "./api";
-import { RouterLink, RouterView } from "vue-router";
+// import { RouterLink, RouterView } from "vue-router";
 import NavMenu from "./components/nav/NavMenu.component.vue";
+import HeaderContainer from "./components/header/HeaderContainer.component.vue";
 </script>
 
 <template>
   <div class="common-layout">
     <el-container>
-      <el-header>Header</el-header>
+      <el-header class="header">
+        <HeaderContainer></HeaderContainer>
+      </el-header>
       <el-container>
         <el-aside width="250px">
           <nav-menu></nav-menu>
@@ -18,4 +21,11 @@ import NavMenu from "./components/nav/NavMenu.component.vue";
   </div>
 </template>
 
-<style scoped></style>
+<style scoped lang="scss">
+.common-layout {
+  .header {
+    background-color: #588dca;
+    color: var(--color-text);
+  }
+}
+</style>

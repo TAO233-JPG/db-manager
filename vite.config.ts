@@ -16,6 +16,9 @@ export default defineConfig({
       resolvers: [ElementPlusResolver()],
     }),
     Components({
+      dirs: ["src/components"],
+      extensions: ["vue"],
+      // dts: "src/components.d.ts",
       resolvers: [ElementPlusResolver()],
     }),
   ],
