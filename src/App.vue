@@ -1,10 +1,12 @@
 <script setup lang="ts">
+import { get_list } from "./api";
 import { RouterLink, RouterView } from "vue-router";
 import HelloWorld from "./components/HelloWorld.vue";
 </script>
 
 <template>
   <header>
+    <button @click="() => get_list()">test</button>
     <img
       alt="Vue logo"
       class="logo"
