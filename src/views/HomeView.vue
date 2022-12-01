@@ -1,7 +1,7 @@
 <template>
   <el-container>
     <el-header class="header">
-      <HeaderContainer></HeaderContainer>
+      <header-container></header-container>
     </el-header>
     <el-container>
       <el-aside width="250px">
@@ -11,7 +11,10 @@
     </el-container>
   </el-container>
 </template>
-<script setup lang="ts"></script>
+<script setup lang="ts">
+import HeaderContainer from "@/components/header/HeaderContainer.component.vue";
+import NavMenu from "@/components/nav/NavMenu.component.vue";
+</script>
 <style scoped lang="scss">
 .header {
   background-color: #588dca;
