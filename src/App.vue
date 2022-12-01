@@ -23,9 +23,14 @@ import HeaderContainer from "./components/header/HeaderContainer.component.vue";
 
 <style scoped lang="scss">
 .common-layout {
+  height: 100%;
   .header {
     background-color: #588dca;
-    color: var(--color-text);
+    color: #fff;
+  }
+  .el-container {
+    flex: 1;
+    height: 100%;
   }
 }
 </style>
