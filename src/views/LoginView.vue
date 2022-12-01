@@ -1,5 +1,5 @@
 <template>
-  <div class="login"></div>
+  <div class="login">2223</div>
 </template>
 <script setup lang="ts"></script>
 <style scoped lang="scss">
