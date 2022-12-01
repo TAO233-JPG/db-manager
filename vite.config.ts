@@ -16,10 +16,12 @@ export default defineConfig({
       resolvers: [ElementPlusResolver()],
     }),
     Components({
-      dirs: ["src/components"],
+      dirs: ["src/components/", "src/views/"],
+      // 配置需要将哪些后缀类型的文件进行自动按需引入，'vue'为默认值
       extensions: ["vue"],
-      // dts: "src/components.d.ts",
       resolvers: [ElementPlusResolver()],
+      dts: true,
+      deep: true,
     }),
   ],
   resolve: {
