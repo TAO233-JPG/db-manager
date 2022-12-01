@@ -15,10 +15,14 @@
             status-icon
           >
             <el-form-item label="用户名" prop="name">
-              <el-input v-model="loginForm.name" />
+              <el-input :prefix-icon="UserFilled" v-model="loginForm.name" />
             </el-form-item>
             <el-form-item label="密码" prop="password">
-              <el-input v-model="loginForm.password" type="password" />
+              <el-input
+                :prefix-icon="Avatar"
+                v-model="loginForm.password"
+                type="password"
+              />
             </el-form-item>
 
             <el-form-item>
@@ -44,6 +48,7 @@
 <script setup lang="ts">
 import type { FormInstance } from "element-plus/es/components";
 import type { FormRules } from "element-plus/es/tokens/form";
+import { UserFilled, Avatar } from "@element-plus/icons-vue";
 import { reactive, ref } from "vue";
 
 const ruleFormRef = ref<FormInstance>();
