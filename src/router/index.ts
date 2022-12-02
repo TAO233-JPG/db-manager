@@ -20,7 +20,7 @@ const router = createRouter({
       component: () => import("../views/HomeView.vue"),
     },
     {
-      path: "/user-login",
+      path: "/login",
       name: "login",
       component: () => import("../views/LoginView.vue"),
     },
@@ -31,6 +31,7 @@ const router = createRouter({
 router.beforeEach((to, from) => {
   console.log("to", to);
   console.log("from", from);
+  console.log("router", router.getRoutes());
 });
 
 export default router;
