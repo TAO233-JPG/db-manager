@@ -4,7 +4,7 @@
       <header-container></header-container>
     </el-header>
     <el-container>
-      <el-aside width="250px">
+      <el-aside>
         <nav-menu></nav-menu>
       </el-aside>
       <el-main>Main </el-main>
@@ -23,5 +23,9 @@ import NavMenu from "@/components/nav/NavMenu.component.vue";
 .el-container {
   flex: 1;
   height: 100%;
+
+  .el-aside {
+    width: auto;
+  }
 }
 </style>
