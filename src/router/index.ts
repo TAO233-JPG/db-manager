@@ -18,6 +18,38 @@ const router = createRouter({
       path: "/home",
       name: "home",
       component: () => import("../views/HomeView.vue"),
+      children: [
+        {
+          path: "test",
+          name: "test",
+          component: () => import("../views/TestView.vue"),
+          meta: {
+            icon: "Setting",
+            title: "首页",
+            show: true,
+          },
+        },
+        {
+          path: "test2",
+          name: "test2",
+          component: () => import("../views/TestView2.vue"),
+          meta: {
+            icon: "Document",
+            title: "管理",
+            show: true,
+          },
+        },
+        {
+          path: "test3",
+          name: "test3",
+          component: () => import("../views/TestView2.vue"),
+          meta: {
+            icon: "Document",
+            title: "禁用1",
+            show: false,
+          },
+        },
+      ],
     },
     {
       path: "/login",

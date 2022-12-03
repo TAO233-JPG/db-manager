@@ -19,6 +19,8 @@ declare module '@vue/runtime-core' {
     ElMain: typeof import('element-plus/es')['ElMain']
     ElMenu: typeof import('element-plus/es')['ElMenu']
     ElMenuItem: typeof import('element-plus/es')['ElMenuItem']
+    ElMenuItemGroup: typeof import('element-plus/es')['ElMenuItemGroup']
+    ElSubMenu: typeof import('element-plus/es')['ElSubMenu']
     'HeaderContainer.component': typeof import('./src/components/header/HeaderContainer.component.vue')['default']
     HomeView: typeof import('./src/views/HomeView.vue')['default']
     LoginView: typeof import('./src/views/LoginView.vue')['default']

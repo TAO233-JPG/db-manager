@@ -17,45 +17,75 @@
     @open="handleOpen"
     @close="handleClose"
     :collapse="isCollapse"
-    text-color="#f0f049"
+    :router="true"
   >
-    <el-menu-item index="1" @click="a">
-      <el-icon><icon-menu /></el-icon>
-      <template #title>首页</template>
-    </el-menu-item>
-    <el-menu-item index="2">
-      <el-icon><document /></el-icon>
-      <template #title>汽车厂家管理</template>
-    </el-menu-item>
-    <el-menu-item index="3">
-      <el-icon><setting /></el-icon>
-      <template #title>客户信息管理</template>
-    </el-menu-item>
-    <el-menu-item index="4">
-      <el-icon><setting /></el-icon>
-      <template #title>汽车信息管理</template>
-    </el-menu-item>
-    <el-menu-item index="5">
-      <el-icon><setting /></el-icon>
-      <template #title>汽车库存管理</template>
-    </el-menu-item>
-    <el-menu-item index="6">
-      <el-icon><setting /></el-icon>
-      <template #title>汽车销售管理</template>
-    </el-menu-item>
+    <template v-for="item of operationRoutes">
+      <template v-if="item.meta.show">
+        <el-menu-item :key="item.path" :index="item.path">
+          <el-icon>
+            <component :is="item.meta.icon"></component>
+          </el-icon>
+          <template #title>{{ item.meta.title }}</template>
+        </el-menu-item>
+      </template>
+      <template v-else>
+        <el-menu-item :key="item.path" :index="item.path" disabled>
+          <el-icon>
+            <component :is="item.meta.icon"></component>
+          </el-icon>
+          <template #title>{{ item.meta.title }}</template>
+        </el-menu-item>
+      </template>
+    </template>
+    <!-- <el-menu-item
+      v-for="item of operationRoutes"
+      :key="item.path"
+      :index="item.path"
+    >
+      <el-icon>
+        <component :is="item.meta.icon"></component>
+      </el-icon>
+      <template #title>{{ item.meta.title }}</template>
+    </el-menu-item> -->
+
+    <el-sub-menu index="3">
+      <template #title>
+        <el-icon><location /></el-icon>
+        <span>管理</span>
+      </template>
+      <el-menu-item index="test">管理1</el-menu-item>
+      <el-menu-item index="test2">管理two</el-menu-item>
+    </el-sub-menu>
   </el-menu>
 </template>
 
 <script lang="ts" setup>
-import { ref } from "vue";
-import {
-  Document,
-  Menu as IconMenu,
-  Location,
-  Setting,
-  Expand,
-  Fold,
-} from "@element-plus/icons-vue";
+import { ref, computed, watch, onBeforeMount } from "vue";
+import ABVue from "../AB.vue";
+
+import { useRouter } from "vue-router";
+
+const router = useRouter();
+router.addRoute("home", {
+  name: "addrouete",
+  path: "addrouete",
+  component: ABVue,
+  meta: {
+    icon: "Setting",
+    show: true,
+    title: "added route",
+  },
+});
+
+console.log(1111, router.getRoutes(), 99);
+const operationRoutes = computed(() => {
+  return router.getRoutes().filter((route) => {
+    const path = route.path;
+    return /^\/home\//.test(path);
+  });
+});
+
+console.log(operationRoutes, 990);
 
 const isCollapse = ref(true);
 const handleOpen = (key: string, keyPath: string[]) => {
@@ -63,10 +93,6 @@ const handleOpen = (key: string, keyPath: string[]) => {
 };
 const handleClose = (key: string, keyPath: string[]) => {
   console.log(key, keyPath);
-};
-
-const a = (a: any) => {
-  console.log("aaa", a.target);
 };
 </script>
 
