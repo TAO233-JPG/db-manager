@@ -4,17 +4,22 @@
     <ul class="user-detail">
       <li class="user-name">
         <el-avatar
+          v-if="userStore.isLogin"
           src="https://cube.elemecdn.com/0/88/03b0d39583f48206768a7534e55bcpng.png"
         >
         </el-avatar>
-        <span>admin</span>
+        <span>{{ userStore.name }}</span>
       </li>
-      <li>个人中心</li>
-      <li>退出登录</li>
+      <li v-if="userStore.isLogin">个人中心</li>
+      <li v-if="userStore.isLogin">退出登录</li>
     </ul>
   </header>
 </template>
-<script setup lang="ts"></script>
+<script setup lang="ts">
+import { useUserStore } from "@/stores/user";
+
+const userStore = useUserStore();
+</script>
 <style scoped lang="scss">
 header {
   display: flex;
