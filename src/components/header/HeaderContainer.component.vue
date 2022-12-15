@@ -1,9 +1,17 @@
 <template>
   <header>
     <h1>后台管理系统</h1>
-    <div>
-      <span>客户。</span>
-    </div>
+    <ul class="user-detail">
+      <li class="user-name">
+        <el-avatar
+          src="https://cube.elemecdn.com/0/88/03b0d39583f48206768a7534e55bcpng.png"
+        >
+        </el-avatar>
+        <span>admin</span>
+      </li>
+      <li>个人中心</li>
+      <li>退出登录</li>
+    </ul>
   </header>
 </template>
 <script setup lang="ts"></script>
@@ -14,11 +22,28 @@ header {
   align-items: center;
   user-select: none;
   height: 100%;
-
+  color: #eee;
   box-sizing: border-box;
   h1 {
     padding-left: 50px;
-    color: #eee;
+  }
+  ul.user-detail {
+    display: flex;
+    align-items: center;
+
+    .user-name {
+      display: flex;
+      align-items: center;
+
+      span {
+        padding-left: 4px;
+      }
+    }
+
+    li {
+      padding: 0 8px;
+      cursor: pointer;
+    }
   }
 }
 </style>
