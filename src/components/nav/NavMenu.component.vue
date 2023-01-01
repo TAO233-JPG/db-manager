@@ -12,12 +12,13 @@
     <el-icon v-else size="28" color="#fff"><Fold /></el-icon>
   </div>
   <el-menu
-    default-active="2"
     class="nav-menu"
     @open="handleOpen"
     @close="handleClose"
     :collapse="isCollapse"
     :router="true"
+    text-color="#fff"
+    background-color="#43658b"
   >
     <template v-for="item of operationRoutes">
       <template v-if="item.meta.show">
