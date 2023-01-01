@@ -17,6 +17,7 @@ const router = createRouter({
     {
       path: "/home",
       name: "home",
+      redirect: "/home/test",
       component: () => import("../views/HomeView.vue"),
       children: [
         {
