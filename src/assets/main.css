@@ -1,5 +1,10 @@
 @import "./base.css";
 
+ul,
+li {
+  list-style: none;
+}
+
 #app {
   width: 100vw;
   height: 100vh;
