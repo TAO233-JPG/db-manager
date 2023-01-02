@@ -16,6 +16,11 @@
 <script setup lang="ts">
 import HeaderContainer from "@/components/header/HeaderContainer.component.vue";
 import NavMenu from "@/components/nav/NavMenu.component.vue";
+import { onBeforeUnmount } from "vue";
+
+onBeforeUnmount(() => {
+  console.log("homeView unmounted");
+});
 </script>
 <style scoped lang="scss">
 .header {

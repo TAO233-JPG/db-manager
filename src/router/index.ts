@@ -31,12 +31,12 @@ const router = createRouter({
           },
         },
         {
-          path: "test2",
-          name: "test2",
-          component: () => import("../views/TestView2.vue"),
+          path: "distributor",
+          name: "distributor",
+          component: () => import("../views/DistributorView.vue"),
           meta: {
             icon: "Document",
-            title: "管理",
+            title: "经销商管理",
             show: true,
           },
         },
