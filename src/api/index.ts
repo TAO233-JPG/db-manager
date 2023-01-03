@@ -1,4 +1,5 @@
 import type { DistributorT } from "@/stores/distributor";
+import type { ProductT } from "@/stores/product";
 import instance from "./instance";
 
 export const get_list = async <T = any>(): Promise<T> => {
@@ -65,5 +66,36 @@ export const set_distributor = async <T = any>(
 /* 删除经销商 */
 export const delete_distributor = async <T = any>(id: number): Promise<T> => {
   const result = await instance.delete(`/distributor/${id}`);
+  return result.data;
+};
+
+/* product: car */
+export const get_product = async <T = any>(): Promise<T> => {
+  const result = await instance.get(`/car`);
+  return result.data;
+};
+export const set_product = async <T = any>(params: ProductT): Promise<T> => {
+  const result = await instance.post("/car/save", params);
+  return result.data;
+};
+
+/* 查看这个车所对应的品牌的选项，已选的选项则进行标记 */
+export const get_product_option = async <T = any>(id: number): Promise<T> => {
+  const result = await instance.get(`/car/${id}/option`);
+  return result.data;
+};
+/* 改这个车所具有的选项 */
+export const set_product_option = async <T = any>(
+  params: ProductT
+): Promise<T> => {
+  const result = await instance.post(
+    `/car/${params.carVin}/option/update`,
+    params
+  );
+  return result.data;
+};
+
+export const delete_product = async <T = any>(id: number): Promise<T> => {
+  const result = await instance.delete(`/car/${id}`);
   return result.data;
 };
