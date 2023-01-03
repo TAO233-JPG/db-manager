@@ -15,7 +15,10 @@
             status-icon
           >
             <el-form-item label="用户名" prop="name">
-              <el-input :prefix-icon="UserFilled" v-model="loginForm.name" />
+              <el-input
+                :prefix-icon="UserFilled"
+                v-model="loginForm.username"
+              />
             </el-form-item>
             <el-form-item label="密码" prop="password">
               <el-input
@@ -50,27 +53,37 @@ import type { FormInstance } from "element-plus/es/components";
 import type { FormRules } from "element-plus/es/tokens/form";
 import { UserFilled, Avatar } from "@element-plus/icons-vue";
 import { reactive, ref } from "vue";
+import { useUserStore } from "@/stores/user";
+import { useRoute, useRouter } from "vue-router";
 
 const ruleFormRef = ref<FormInstance>();
 const loginForm = reactive({
-  name: "Hello",
+  username: "admin",
   password: "",
 });
 const rules = reactive<FormRules>({
-  name: [{ required: true, message: "请输入用户名", trigger: "blur" }],
+  username: [{ required: true, message: "请输入用户名", trigger: "blur" }],
   password: [
     { required: true, message: "请输入密码", trigger: "blur" },
     { min: 4, max: 8, message: "密码长度在4-8之间", trigger: "blur" },
   ],
 });
 
+const userStore = useUserStore();
+const router = useRouter();
 const login = async (formEl: FormInstance | undefined) => {
   if (!formEl) return;
   console.log(formEl);
-  await formEl.validate((valid, fields) => {
+  await formEl.validate(async (valid, fields) => {
     if (valid) {
       console.log("submit!");
-      console.log(loginForm.name, loginForm.password, { ...loginForm });
+      console.log(loginForm.username, loginForm.password, { ...loginForm });
+      try {
+        await userStore.login(loginForm.username, loginForm.password);
+        router.push("/home");
+      } catch (error) {
+        ElMessage.error("登录失败");
+      }
     } else {
       console.log("error submit!", fields);
     }

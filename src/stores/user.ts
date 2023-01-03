@@ -1,6 +1,6 @@
 import { ref, computed } from "vue";
 import { defineStore } from "pinia";
-import { post_login } from "@/api";
+import { get_login } from "@/api";
 
 export const useUserStore = defineStore("user", () => {
   const username = ref("");
@@ -13,7 +13,7 @@ export const useUserStore = defineStore("user", () => {
 
   const login = async (_username: string, _password: string) => {
     try {
-      const result = await post_login({
+      const result = await get_login({
         username: _username,
         password: _password,
       });
@@ -24,6 +24,7 @@ export const useUserStore = defineStore("user", () => {
       console.log(result, "login-result");
     } catch (error) {
       console.log(error);
+      throw new Error("登录失败");
     }
   };
 
