@@ -15,8 +15,24 @@ export type LoginT = {
   username: string;
   password: string;
 };
-export const post_login = async <T = any>(params: LoginT): Promise<T> => {
-  const result = await instance.post("/login", params);
+export const get_login_admin = async <T = any>(params: LoginT): Promise<T> => {
+  const result = await instance.get("/admin/login", {
+    params,
+  });
+  return result.data;
+};
+export const get_login_distributor = async <T = any>(
+  params: LoginT
+): Promise<T> => {
+  const result = await instance.get("/distributor/login", {
+    params,
+  });
+  return result.data;
+};
+export const get_login_staff = async <T = any>(params: LoginT): Promise<T> => {
+  const result = await instance.get("/staff/login", {
+    params,
+  });
   return result.data;
 };
 

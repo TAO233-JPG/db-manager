@@ -88,7 +88,7 @@ const operationRoutes = computed(() => {
 
 console.log(operationRoutes, 990);
 
-const isCollapse = ref(true);
+const isCollapse = ref(false);
 const handleOpen = (key: string, keyPath: string[]) => {
   console.log("handleOpen", key, keyPath);
 };

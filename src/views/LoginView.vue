@@ -14,7 +14,7 @@
             class="loginForm"
             status-icon
           >
-            <el-form-item label="用户名" prop="name">
+            <el-form-item label="用户名" prop="username">
               <el-input
                 :prefix-icon="UserFilled"
                 v-model="loginForm.username"
@@ -26,6 +26,18 @@
                 v-model="loginForm.password"
                 type="password"
               />
+            </el-form-item>
+            <el-form-item label="身份" prop="identity">
+              <el-select
+                v-model="loginForm.identity"
+                placeholder="Select"
+                size="large"
+                :style="{ width: '100%' }"
+              >
+                <el-option label="管理员" value="管理员" />
+                <el-option label="经销商管理员" value="经销商管理员" />
+                <el-option label="销售人员" value="销售人员" />
+              </el-select>
             </el-form-item>
 
             <el-form-item>
@@ -60,13 +72,15 @@ const ruleFormRef = ref<FormInstance>();
 const loginForm = reactive({
   username: "admin",
   password: "",
+  identity: "管理员",
 });
 const rules = reactive<FormRules>({
   username: [{ required: true, message: "请输入用户名", trigger: "blur" }],
   password: [
     { required: true, message: "请输入密码", trigger: "blur" },
-    { min: 4, max: 8, message: "密码长度在4-8之间", trigger: "blur" },
+    { min: 4, max: 12, message: "密码长度在4-12之间", trigger: "blur" },
   ],
+  identity: [{ required: true, message: "请选择" }],
 });
 
 const userStore = useUserStore();
@@ -79,7 +93,13 @@ const login = async (formEl: FormInstance | undefined) => {
       console.log("submit!");
       console.log(loginForm.username, loginForm.password, { ...loginForm });
       try {
-        await userStore.login(loginForm.username, loginForm.password);
+        console.log(loginForm, "loginForm");
+        await userStore.login(
+          loginForm.username,
+          loginForm.password,
+          loginForm.identity
+        );
+
         router.push("/home");
       } catch (error) {
         ElMessage.error("登录失败");
@@ -119,7 +139,7 @@ const login = async (formEl: FormInstance | undefined) => {
 
     .login-pane {
       flex: 1;
-      padding-top: 10%;
+      padding-top: 5%;
       h2 {
         text-align: center;
         // color: #fff;
