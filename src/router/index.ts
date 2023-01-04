@@ -17,16 +17,16 @@ const router = createRouter({
     {
       path: "/home",
       name: "home",
-      redirect: "/home/test",
+      redirect: "/home/product",
       component: () => import("../views/HomeView.vue"),
       children: [
         {
-          path: "test",
-          name: "test",
-          component: () => import("../views/TestView.vue"),
+          path: "product",
+          name: "product",
+          component: () => import("../views/ProductView.vue"),
           meta: {
             icon: "Setting",
-            title: "首页",
+            title: "产品",
             show: true,
           },
         },
