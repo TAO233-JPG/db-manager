@@ -59,7 +59,7 @@ export const get_distributors = async <T = any>(): Promise<T> => {
 export const set_distributor = async <T = any>(
   params: DistributorT
 ): Promise<T> => {
-  const result = await instance.post("/distributor/save", params);
+  const result = await instance.post("/distributor", params);
   return result.data;
 };
 
@@ -75,7 +75,7 @@ export const get_product = async <T = any>(): Promise<T> => {
   return result.data;
 };
 export const set_product = async <T = any>(params: ProductT): Promise<T> => {
-  const result = await instance.post("/car/save", params);
+  const result = await instance.post("/car", params);
   return result.data;
 };
 
