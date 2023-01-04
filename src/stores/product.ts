@@ -20,7 +20,7 @@ export type ProductT = {
 };
 
 // 产品管理
-export const useProductStore = defineStore("distributor", () => {
+export const useProductStore = defineStore("product", () => {
   const cars = ref<ProductT[]>([
     {
       carVin: 12,

@@ -97,7 +97,7 @@
 </template>
 
 <script lang="ts" setup>
-import { computed, onMounted, ref } from "vue";
+import { computed, onBeforeUnmount, onMounted, ref } from "vue";
 import { throttle } from "lodash";
 import { useDistributorStore, type DistributorT } from "@/stores/distributor";
 
@@ -111,6 +111,10 @@ function setHeight() {
 const setHeightThrottle = throttle(setHeight, 230);
 onMounted(() => {
   window.addEventListener("resize", setHeightThrottle, false);
+});
+
+onBeforeUnmount(() => {
+  window.removeEventListener("resize", setHeightThrottle);
 });
 
 const distributorStore = useDistributorStore();

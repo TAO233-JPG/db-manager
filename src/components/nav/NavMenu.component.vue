@@ -18,6 +18,7 @@
     :collapse="isCollapse"
     :router="true"
     text-color="#fff"
+    :default-active="router.currentRoute.value.fullPath"
     background-color="#43658b"
   >
     <template v-for="item of operationRoutes">
@@ -85,8 +86,6 @@ const operationRoutes = computed(() => {
     return /^\/home\//.test(path);
   });
 });
-
-console.log(operationRoutes, 990);
 
 const isCollapse = ref(false);
 const handleOpen = (key: string, keyPath: string[]) => {

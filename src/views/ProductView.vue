@@ -39,7 +39,7 @@
       @current-change="handleCurrentChange"
     />
   </div>
-  <!-- 编辑经销商 -->
+  <!-- 编辑产品 -->
   <div>
     <el-dialog v-model="dialogFormVisible" title="编辑经销商" center>
       <el-form :model="form" label-width="140px" style="max-width: 580px">
@@ -62,7 +62,7 @@
     </el-dialog>
   </div>
 
-  <!-- 新增经销商 -->
+  <!-- 新增产品 -->
   <div>
     <el-dialog v-model="addFormVisible" title="新增经销商" center>
       <el-form :model="addForm" label-width="140px" style="max-width: 580px">
@@ -87,7 +87,7 @@
 </template>
 
 <script lang="ts" setup>
-import { computed, onMounted, ref } from "vue";
+import { computed, onBeforeUnmount, onMounted, ref } from "vue";
 import { throttle } from "lodash";
 import { useProductStore, type ProductT } from "@/stores/product";
 
@@ -101,6 +101,10 @@ function setHeight() {
 const setHeightThrottle = throttle(setHeight, 230);
 onMounted(() => {
   window.addEventListener("resize", setHeightThrottle, false);
+});
+
+onBeforeUnmount(() => {
+  window.removeEventListener("resize", setHeightThrottle);
 });
 
 const store = useProductStore();
