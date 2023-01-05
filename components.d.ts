@@ -37,6 +37,7 @@ declare module '@vue/runtime-core' {
     ProductView: typeof import('./src/views/ProductView.vue')['default']
     RouterLink: typeof import('vue-router')['RouterLink']
     RouterView: typeof import('vue-router')['RouterView']
+    StaffView: typeof import('./src/views/StaffView.vue')['default']
     TestView: typeof import('./src/views/TestView.vue')['default']
     TestView2: typeof import('./src/views/TestView2.vue')['default']
     UserView: typeof import('./src/views/UserView.vue')['default']

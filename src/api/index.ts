@@ -1,6 +1,7 @@
 import type { DistributorT } from "@/stores/distributor";
 import type { InventoryT } from "@/stores/Inventory";
 import type { ProductT } from "@/stores/product";
+import type { StaffT } from "@/stores/staff";
 import instance from "./instance";
 
 export const get_list = async <T = any>(): Promise<T> => {
@@ -39,9 +40,16 @@ export const get_login_staff = async <T = any>(params: LoginT): Promise<T> => {
 };
 
 /* 获取员工 */
-
 export const get_staffs = async <T = any>(): Promise<T> => {
   const result = await instance.get("/staff");
+  return result.data;
+};
+export const set_staff = async <T = any>(params: StaffT): Promise<T> => {
+  const result = await instance.post("/staff", params);
+  return result.data;
+};
+export const delete_staff = async <T = any>(id: number): Promise<T> => {
+  const result = await instance.delete(`/staff/${id}`);
   return result.data;
 };
 

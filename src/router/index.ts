@@ -50,6 +50,16 @@ const router = createRouter({
             show: true,
           },
         },
+        {
+          path: "staff",
+          name: "staff",
+          component: () => import("../views/StaffView.vue"),
+          meta: {
+            icon: "Document",
+            title: "经销商人员管理",
+            show: true,
+          },
+        },
 
         {
           path: "test3",
