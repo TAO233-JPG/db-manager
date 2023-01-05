@@ -22,7 +22,9 @@
     background-color="#43658b"
   >
     <template v-for="item of operationRoutes">
-      <template v-if="item.meta.show">
+      <template
+        v-if="(item.meta.show as string[]).includes(userStore.identity1)|| userStore.identity1 === '111'"
+      >
         <el-menu-item :key="item.path" :index="item.path">
           <el-icon>
             <component :is="item.meta.icon"></component>
@@ -30,14 +32,14 @@
           <template #title>{{ item.meta.title }}</template>
         </el-menu-item>
       </template>
-      <template v-else>
+      <!-- <template v-else>
         <el-menu-item :key="item.path" :index="item.path" disabled>
           <el-icon>
             <component :is="item.meta.icon"></component>
           </el-icon>
           <template #title>{{ item.meta.title }}</template>
         </el-menu-item>
-      </template>
+      </template> -->
     </template>
     <!-- <el-menu-item
       v-for="item of operationRoutes"
@@ -63,8 +65,8 @@
 
 <script lang="ts" setup>
 import { ref, computed } from "vue";
-
 import { useRouter } from "vue-router";
+import { useUserStore } from "@/stores/user";
 
 const router = useRouter();
 // router.addRoute("home", {
@@ -77,6 +79,8 @@ const router = useRouter();
 //     title: "added route",
 //   },
 // });
+
+const userStore = useUserStore();
 
 console.log(1111, router.getRoutes(), 99);
 const operationRoutes = computed(() => {

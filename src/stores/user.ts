@@ -6,11 +6,11 @@ export const useUserStore = defineStore("user", () => {
   const username = ref("");
   const password = ref("");
   const isLogin = ref(false);
-  const identity1 = ref("");
+  const identity1 = ref("111");
   const name = computed(() => {
     return isLogin.value ? username.value : "未登录";
   });
-
+  const user = ref<any>();
   const login = async (
     _username: string,
     _password: string,
@@ -39,8 +39,8 @@ export const useUserStore = defineStore("user", () => {
       password.value = _password;
       identity1.value = _identity;
       isLogin.value = true;
-
-      console.log(result, "login-result");
+      user.value = result;
+      // console.log(result, "login-result");
     } catch (error) {
       console.log(error);
       throw new Error("登录失败");
@@ -51,5 +51,5 @@ export const useUserStore = defineStore("user", () => {
     isLogin.value = false;
   };
 
-  return { name, isLogin, login, logout };
+  return { name, isLogin, login, logout, identity1 };
 });

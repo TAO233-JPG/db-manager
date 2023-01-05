@@ -1,6 +1,4 @@
-import ABVue from "@/components/AB.vue";
 import { createRouter, createWebHistory } from "vue-router";
-
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
   routes: [
@@ -27,7 +25,7 @@ const router = createRouter({
           meta: {
             icon: "Setting",
             title: "产品",
-            show: true,
+            show: ["管理员"],
           },
         },
         {
@@ -37,7 +35,7 @@ const router = createRouter({
           meta: {
             icon: "Document",
             title: "经销商管理",
-            show: true,
+            show: ["管理员"],
           },
         },
         {
@@ -47,7 +45,7 @@ const router = createRouter({
           meta: {
             icon: "Document",
             title: "经销商库存管理",
-            show: true,
+            show: ["经销商管理员"],
           },
         },
         {
@@ -57,7 +55,7 @@ const router = createRouter({
           meta: {
             icon: "Document",
             title: "经销商人员管理",
-            show: true,
+            show: ["经销商管理员"],
           },
         },
         {
@@ -67,7 +65,7 @@ const router = createRouter({
           meta: {
             icon: "Document",
             title: "订单管理",
-            show: true,
+            show: ["经销商管理员", "销售人员"],
           },
         },
 

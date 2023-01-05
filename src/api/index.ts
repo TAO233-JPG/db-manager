@@ -54,12 +54,6 @@ export const delete_staff = async <T = any>(id: number): Promise<T> => {
   return result.data;
 };
 
-/* 获取品牌 */
-export const get_brands = async <T = any>(): Promise<T> => {
-  const result = await instance.get("/brand");
-  return result.data;
-};
-
 /* 获取经销商 */
 export const get_distributors = async <T = any>(): Promise<T> => {
   const result = await instance.get("/distributor");
@@ -86,6 +80,20 @@ export const get_product = async <T = any>(): Promise<T> => {
 };
 export const set_product = async <T = any>(params: ProductT): Promise<T> => {
   const result = await instance.post("/car", params);
+  return result.data;
+};
+
+/* 获取品牌 */
+export const get_brands = async <T = any>(): Promise<T> => {
+  const result = await instance.get("/brand");
+  return result.data;
+};
+export const set_brand = async <T = any>(params: OrderT): Promise<T> => {
+  const result = await instance.post("/brand", params);
+  return result.data;
+};
+export const delete_brand = async <T = any>(id: number): Promise<T> => {
+  const result = await instance.delete(`/brand/${id}`);
   return result.data;
 };
 
