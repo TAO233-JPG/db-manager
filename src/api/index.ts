@@ -1,3 +1,4 @@
+import type { brandT } from "@/stores/brand";
 import type { DistributorT } from "@/stores/distributor";
 import type { InventoryT } from "@/stores/Inventory";
 import type { OrderT } from "@/stores/order";
@@ -88,7 +89,7 @@ export const get_brands = async <T = any>(): Promise<T> => {
   const result = await instance.get("/brand");
   return result.data;
 };
-export const set_brand = async <T = any>(params: OrderT): Promise<T> => {
+export const set_brand = async <T = any>(params: brandT): Promise<T> => {
   const result = await instance.post("/brand", params);
   return result.data;
 };

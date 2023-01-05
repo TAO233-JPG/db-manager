@@ -8,6 +8,7 @@ export {}
 declare module '@vue/runtime-core' {
   export interface GlobalComponents {
     AB: typeof import('./src/components/AB.vue')['default']
+    BrandView: typeof import('./src/views/BrandView.vue')['default']
     DistributorView: typeof import('./src/views/DistributorView.vue')['default']
     ElAside: typeof import('element-plus/es')['ElAside']
     ElAvatar: typeof import('element-plus/es')['ElAvatar']

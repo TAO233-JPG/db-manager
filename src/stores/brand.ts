@@ -1,16 +1,16 @@
 import { ref, computed } from "vue";
 import { defineStore } from "pinia";
-import { get_brands } from "@/api";
+import { delete_brand, get_brands, set_brand } from "@/api";
 
-type brandT = {
+export type brandT = Partial<{
   brandId: number;
   brandName: string;
-};
+}>;
 
 export const useBrandStore = defineStore("brand", () => {
-  const brands = ref<brandT[]>([]);
+  const brands = ref<brandT[]>([{ brandId: 1, brandName: "211" }]);
 
-  const getBrands = async () => {
+  const get = async () => {
     try {
       const result = await get_brands<brandT[]>();
       brands.value = result;
@@ -19,5 +19,37 @@ export const useBrandStore = defineStore("brand", () => {
     }
   };
 
-  return { brands, getBrands };
+  const del = async (id: number) => {
+    try {
+      await delete_brand(id);
+    } catch (error) {
+      console.log(error);
+    }
+    brands.value = brands.value.filter((item) => item.brandId !== id);
+  };
+
+  const edit = async (data: brandT) => {
+    try {
+      await set_brand(data);
+    } catch (e) {
+      console.log(e);
+    }
+    const idx = brands.value.findIndex((element) => {
+      return element.brandId === data.brandId;
+    });
+    console.log(data);
+
+    brands.value[idx] = data;
+  };
+
+  const add = async (data: brandT) => {
+    try {
+      await set_brand(data);
+    } catch (error) {
+      console.log(error);
+    }
+    brands.value.push(data);
+  };
+
+  return { brands, get, del, edit, add };
 });
