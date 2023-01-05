@@ -31,6 +31,7 @@ declare module '@vue/runtime-core' {
     ElTableColumn: typeof import('element-plus/es')['ElTableColumn']
     'HeaderContainer.component': typeof import('./src/components/header/HeaderContainer.component.vue')['default']
     HomeView: typeof import('./src/views/HomeView.vue')['default']
+    InventoryView: typeof import('./src/views/InventoryView.vue')['default']
     LoginView: typeof import('./src/views/LoginView.vue')['default']
     'NavMenu.component': typeof import('./src/components/nav/NavMenu.component.vue')['default']
     ProductView: typeof import('./src/views/ProductView.vue')['default']

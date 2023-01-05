@@ -1,4 +1,5 @@
 import type { DistributorT } from "@/stores/distributor";
+import type { InventoryT } from "@/stores/Inventory";
 import type { ProductT } from "@/stores/product";
 import instance from "./instance";
 
@@ -97,5 +98,21 @@ export const set_product_option = async <T = any>(
 
 export const delete_product = async <T = any>(id: number): Promise<T> => {
   const result = await instance.delete(`/car/${id}`);
+  return result.data;
+};
+
+/* 库存管理 */
+export const get_inventory = async <T = any>(): Promise<T> => {
+  const result = await instance.get(`/inventory`);
+  return result.data;
+};
+export const set_inventory = async <T = any>(
+  params: InventoryT
+): Promise<T> => {
+  const result = await instance.post("/inventory", params);
+  return result.data;
+};
+export const delete_inventory = async <T = any>(id: number): Promise<T> => {
+  const result = await instance.delete(`/inventory/${id}`);
   return result.data;
 };

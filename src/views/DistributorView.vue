@@ -150,8 +150,8 @@ const handleDelete = (data: DistributorT) => {
     cancelButtonText: "Cancel",
     type: "warning",
   })
-    .then(() => {
-      distributorStore.deleteDistributor(data.distributorId);
+    .then(async () => {
+      await distributorStore.deleteDistributor(data.distributorId);
       ElMessage({
         type: "success",
         message: "Delete completed",
