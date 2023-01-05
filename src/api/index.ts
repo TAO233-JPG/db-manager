@@ -41,8 +41,8 @@ export const get_login_staff = async <T = any>(params: LoginT): Promise<T> => {
 };
 
 /* 获取员工 */
-export const get_staffs = async <T = any>(): Promise<T> => {
-  const result = await instance.get("/staff");
+export const get_staffs = async <T = any>(id: number): Promise<T> => {
+  const result = await instance.get(`/staff/distributor/${id}`);
   return result.data;
 };
 export const set_staff = async <T = any>(params: StaffT): Promise<T> => {

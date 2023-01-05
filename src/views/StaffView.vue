@@ -104,6 +104,7 @@
 import { computed, onBeforeUnmount, onMounted, ref } from "vue";
 import { throttle } from "lodash";
 import { useStaffStore, type StaffT } from "@/stores/staff";
+import { useUserStore } from "@/stores/user";
 
 const tableHeight = ref(500);
 
@@ -191,11 +192,12 @@ const confirmEdit = async () => {
 
 /* 新增 */
 const addFormVisible = ref(false);
+const userStore = useUserStore();
 const addForm = ref<StaffT>({
   staffId: 0,
   staffName: "",
   staffPhone: "",
-  staffDistributorId: 0,
+  staffDistributorId: userStore.user?.distributorId || "distributorId",
   staffPassword: "",
 });
 const add = () => {

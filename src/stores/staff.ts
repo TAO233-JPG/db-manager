@@ -1,7 +1,8 @@
 import { ref } from "vue";
 import { defineStore } from "pinia";
 import { delete_staff, get_staffs, set_staff } from "@/api";
-
+import { useUserStore } from "./user";
+const userStore = useUserStore();
 export type StaffT = {
   staffId: number;
 
@@ -53,7 +54,9 @@ export const useStaffStore = defineStore("staff", () => {
 
   const get = async () => {
     try {
-      const result = await get_staffs<StaffT[]>();
+      const result = await get_staffs<StaffT[]>(
+        userStore.user?.distributorId ?? 0
+      );
       staffs.value = result;
     } catch (error) {
       console.log(error);

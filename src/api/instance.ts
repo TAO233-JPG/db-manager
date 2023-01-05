@@ -23,6 +23,9 @@ instance.interceptors.request.use(
 instance.interceptors.response.use(
   (response) => {
     console.log(`axios 响应拦截器`, response);
+    if (response.data.code === -1) {
+      throw Error("error_响应");
+    }
     return response.data;
   },
   (error) => {

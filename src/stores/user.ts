@@ -51,5 +51,5 @@ export const useUserStore = defineStore("user", () => {
     isLogin.value = false;
   };
 
-  return { name, isLogin, login, logout, identity1 };
+  return { name, isLogin, login, logout, identity1, user };
 });
