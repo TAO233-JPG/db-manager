@@ -6,7 +6,7 @@ export const useUserStore = defineStore("user", () => {
   const username = ref("");
   const password = ref("");
   const isLogin = ref(false);
-
+  const identity1 = ref("");
   const name = computed(() => {
     return isLogin.value ? username.value : "未登录";
   });
@@ -14,22 +14,22 @@ export const useUserStore = defineStore("user", () => {
   const login = async (
     _username: string,
     _password: string,
-    identity: string
+    _identity: string
   ) => {
     try {
       let result: any = "";
 
-      if (identity === "管理员") {
+      if (_identity === "管理员") {
         result = await get_login_admin({
           username: _username,
           password: _password,
         });
-      } else if (identity === "经销商管理员") {
+      } else if (_identity === "经销商管理员") {
         result = await get_login_distributor({
           username: _username,
           password: _password,
         });
-      } else if (identity === "销售人员") {
+      } else if (_identity === "销售人员") {
         result = await get_login_staff({
           username: _username,
           password: _password,
@@ -37,6 +37,7 @@ export const useUserStore = defineStore("user", () => {
       }
       username.value = _username;
       password.value = _password;
+      identity1.value = _identity;
       isLogin.value = true;
 
       console.log(result, "login-result");
@@ -46,5 +47,9 @@ export const useUserStore = defineStore("user", () => {
     }
   };
 
-  return { name, isLogin, login };
+  const logout = async () => {
+    isLogin.value = false;
+  };
+
+  return { name, isLogin, login, logout };
 });

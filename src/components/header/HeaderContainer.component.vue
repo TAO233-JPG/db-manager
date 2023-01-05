@@ -10,15 +10,21 @@
         </el-avatar>
         <span>{{ userStore.name }}</span>
       </li>
-      <li v-if="userStore.isLogin">个人中心</li>
-      <li v-if="userStore.isLogin">退出登录</li>
+      <!-- <li v-if="userStore.isLogin">个人中心</li> -->
+      <li v-if="userStore.isLogin" @click="logout">退出登录</li>
     </ul>
   </header>
 </template>
 <script setup lang="ts">
 import { useUserStore } from "@/stores/user";
-
+import { useRouter } from "vue-router";
 const userStore = useUserStore();
+const router = useRouter();
+userStore.isLogin = true;
+const logout = async () => {
+  await userStore.logout();
+  router.replace("/login");
+};
 </script>
 <style scoped lang="scss">
 header {
