@@ -1,5 +1,6 @@
 import type { DistributorT } from "@/stores/distributor";
 import type { InventoryT } from "@/stores/Inventory";
+import type { OrderT } from "@/stores/order";
 import type { ProductT } from "@/stores/product";
 import type { StaffT } from "@/stores/staff";
 import instance from "./instance";
@@ -122,5 +123,19 @@ export const set_inventory = async <T = any>(
 };
 export const delete_inventory = async <T = any>(id: number): Promise<T> => {
   const result = await instance.delete(`/inventory/${id}`);
+  return result.data;
+};
+
+/* 订单 */
+export const get_order = async <T = any>(): Promise<T> => {
+  const result = await instance.get(`/order`);
+  return result.data;
+};
+export const set_order = async <T = any>(params: OrderT): Promise<T> => {
+  const result = await instance.post("/order", params);
+  return result.data;
+};
+export const delete_order = async <T = any>(id: number): Promise<T> => {
+  const result = await instance.delete(`/order/${id}`);
   return result.data;
 };

@@ -60,6 +60,16 @@ const router = createRouter({
             show: true,
           },
         },
+        {
+          path: "order",
+          name: "order",
+          component: () => import("../views/OrderView.vue"),
+          meta: {
+            icon: "Document",
+            title: "经销商订单管理",
+            show: true,
+          },
+        },
 
         {
           path: "test3",
