@@ -66,21 +66,21 @@ const router = createRouter({
           component: () => import("../views/OrderView.vue"),
           meta: {
             icon: "Document",
-            title: "经销商订单管理",
+            title: "订单管理",
             show: true,
           },
         },
 
-        {
-          path: "test3",
-          name: "test3",
-          component: () => import("../views/TestView2.vue"),
-          meta: {
-            icon: "Document",
-            title: "禁用1",
-            show: false,
-          },
-        },
+        // {
+        //   path: "test3",
+        //   name: "test3",
+        //   component: () => import("../views/TestView2.vue"),
+        //   meta: {
+        //     icon: "Document",
+        //     title: "禁用1",
+        //     show: false,
+        //   },
+        // },
       ],
     },
     {

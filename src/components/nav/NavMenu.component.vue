@@ -50,34 +50,33 @@
       <template #title>{{ item.meta.title }}</template>
     </el-menu-item> -->
 
-    <el-sub-menu index="3">
+    <!-- <el-sub-menu index="3">
       <template #title>
         <el-icon><location /></el-icon>
         <span>管理</span>
       </template>
       <el-menu-item index="test">管理1</el-menu-item>
       <el-menu-item index="test2">管理two</el-menu-item>
-    </el-sub-menu>
+    </el-sub-menu> -->
   </el-menu>
 </template>
 
 <script lang="ts" setup>
-import { ref, computed, watch, onBeforeMount } from "vue";
-import ABVue from "../AB.vue";
+import { ref, computed } from "vue";
 
 import { useRouter } from "vue-router";
 
 const router = useRouter();
-router.addRoute("home", {
-  name: "addrouete",
-  path: "addrouete",
-  component: ABVue,
-  meta: {
-    icon: "Setting",
-    show: true,
-    title: "added route",
-  },
-});
+// router.addRoute("home", {
+//   name: "addrouete",
+//   path: "addrouete",
+//   component: ABVue,
+//   meta: {
+//     icon: "Setting",
+//     show: true,
+//     title: "added route",
+//   },
+// });
 
 console.log(1111, router.getRoutes(), 99);
 const operationRoutes = computed(() => {
