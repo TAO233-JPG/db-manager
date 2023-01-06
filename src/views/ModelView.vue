@@ -253,6 +253,8 @@ const confirmAdd = async () => {
     modelBrandId: undefined,
     brand: { brandId: undefined, brandName: "" },
   };
+
+  await store.get();
 };
 
 /* 模型选项管理 */

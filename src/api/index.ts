@@ -182,6 +182,11 @@ export const delete_inventory = async <T = any>(id: number): Promise<T> => {
   return result.data;
 };
 
+export const add_inventory_counts = async (id: number, count: number) => {
+  const result = await instance.put(`/inventory/update`, { id, count });
+  return result.data;
+};
+
 /* 订单 */
 export const get_order = async <T = any>(id: number): Promise<T> => {
   const result = await instance.get(`/order/distributor/${id}`);

@@ -1,6 +1,7 @@
 import { ref } from "vue";
 import { defineStore } from "pinia";
 import {
+  add_inventory_counts,
   delete_inventory,
   get_all_inventory,
   get_inventory,
@@ -146,11 +147,26 @@ export const useInventoryStore = defineStore("inventory", () => {
     inventory.value.push(data);
   };
 
+  const add_counts = async (data: InventoryT) => {
+    try {
+      await add_inventory_counts(data.inventoryId, data.inventoryCount);
+    } catch (e) {
+      console.log(e);
+    }
+    const idx = inventory.value.findIndex((element) => {
+      return element.inventoryId === data.inventoryId;
+    });
+    console.log(data);
+
+    inventory.value[idx] = data;
+  };
+
   return {
     inventory,
     get,
     del,
     edit,
     add,
+    add_counts,
   };
 });

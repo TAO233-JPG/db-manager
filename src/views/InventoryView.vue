@@ -158,6 +158,7 @@ const form = ref<InventoryT>({
 
 const confirmEdit = async () => {
   await store.edit(form.value);
+  // await store.add_counts(form.value);
   dialogFormVisible.value = false;
   ElMessage({
     type: "success",
