@@ -2,6 +2,8 @@ import { ref } from "vue";
 import { defineStore } from "pinia";
 import { delete_order, get_order, set_order, set_order_staff } from "@/api";
 import { useUserStore } from "./user";
+import type { ProductT } from "./product";
+import type { StaffT } from "./staff";
 
 const userStore = useUserStore();
 
@@ -35,6 +37,8 @@ export type OrderT = Partial<{
    * 顾客姓名
    */
   orderCustomerName: string;
+  carDetail: ProductT;
+  staff: StaffT;
 }>;
 
 export const useOrderStore = defineStore("order", () => {
@@ -46,6 +50,36 @@ export const useOrderStore = defineStore("order", () => {
       orderMoney: 11,
       orderVin: 11,
       orderCustomerName: "11",
+      carDetail: {
+        carVin: 12,
+        carDistributorId: 12,
+        carModelId: 12,
+        modelDetail: {
+          modelName: "1-1",
+          modelId: 11,
+          modelBrandId: 12,
+          brand: {
+            brandId: 22,
+            brandName: "1",
+          },
+        },
+        distributor: {
+          distributorId: 1,
+          distributorName: "distributorName",
+          distributorUsername: "distributorUsername",
+          distributorPhone: "distributorPhone",
+          distributorPassword: "distributorPassword",
+          distributorAddress: "distributorAddress",
+        },
+      },
+
+      staff: {
+        staffId: 111,
+        staffName: "111",
+        staffPhone: "111",
+        staffPassword: "111",
+        staffDistributorId: 11,
+      },
     },
     {
       orderId: 22,
@@ -54,6 +88,35 @@ export const useOrderStore = defineStore("order", () => {
       orderMoney: 22,
       orderVin: 22,
       orderCustomerName: "22",
+      carDetail: {
+        carVin: 12,
+        carDistributorId: 12,
+        carModelId: 12,
+        modelDetail: {
+          modelName: "1-1",
+          modelId: 11,
+          modelBrandId: 12,
+          brand: {
+            brandId: 22,
+            brandName: "1",
+          },
+        },
+        distributor: {
+          distributorId: 1,
+          distributorName: "distributorName",
+          distributorUsername: "distributorUsername",
+          distributorPhone: "distributorPhone",
+          distributorPassword: "distributorPassword",
+          distributorAddress: "distributorAddress",
+        },
+      },
+      staff: {
+        staffId: 111,
+        staffName: "111",
+        staffPhone: "111",
+        staffPassword: "111",
+        staffDistributorId: 11,
+      },
     },
     {
       orderId: 33,
@@ -67,7 +130,13 @@ export const useOrderStore = defineStore("order", () => {
 
   const get = async () => {
     try {
-      const result = await get_order<OrderT[]>();
+      let id: number = 0;
+      if (userStore.auth === 2) {
+        id = userStore.user?.distributorId ?? 222;
+      } else {
+        id = userStore.user?.staffDistributorId ?? 888;
+      }
+      const result = await get_order<OrderT[]>(id);
       staffs.value = result;
     } catch (error) {
       console.log(error);

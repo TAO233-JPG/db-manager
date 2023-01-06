@@ -113,7 +113,7 @@ export const set_product_option = async <T = any>(
   id: number,
   params: number[]
 ): Promise<T> => {
-  const result = await instance.post(`/car/${id}/option/update`, {
+  const result = await instance.put(`/car/${id}/option/update`, {
     id,
     optionId: params,
   });
@@ -155,7 +155,7 @@ export const set_model_options = async <T = any>(
   id: number,
   optionIds: number[]
 ): Promise<T> => {
-  const result = await instance.post(`/model/${id}/option`, {
+  const result = await instance.put(`/model/${id}/option`, {
     modelId: id,
     ids: optionIds,
   });
@@ -183,8 +183,8 @@ export const delete_inventory = async <T = any>(id: number): Promise<T> => {
 };
 
 /* 订单 */
-export const get_order = async <T = any>(): Promise<T> => {
-  const result = await instance.get(`/order`);
+export const get_order = async <T = any>(id: number): Promise<T> => {
+  const result = await instance.get(`/order/distributor/${id}`);
   return result.data;
 };
 export const set_order = async <T = any>(params: OrderT): Promise<T> => {

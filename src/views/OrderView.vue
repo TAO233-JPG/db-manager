@@ -16,12 +16,17 @@
   >
     <el-table-column type="index" width="50" fixed />
     <!-- <el-table-column fixed prop="orderId" label="订单编号" /> -->
-    <el-table-column fixed prop="orderStaffId" label="订单所属销售人员" />
+    <el-table-column fixed prop="staff.staffName" label="销售人员" />
+    <el-table-column prop="orderVin" label="车辆标识号" />
+    <el-table-column
+      prop="carDetail.modelDetail.brand.brandName"
+      label="品牌"
+    />
+    <el-table-column prop="carDetail.modelDetail.modelName" label="模型" />
     <el-table-column prop="orderCustomerPhone" label="顾客电话" />
     <el-table-column prop="orderMoney" label="订单金额" />
-    <el-table-column prop="orderVin" label="车辆标识号" />
     <el-table-column prop="orderCustomerName" label="顾客姓名" />
-    <el-table-column label="Operations" fixed="right">
+    <el-table-column label="Operations" fixed="right" width="250">
       <template #default="scope">
         <el-button size="small" @click="handleEdit(scope.row)">Edit</el-button>
         <el-button size="small" type="danger" @click="handleDelete(scope.row)"
