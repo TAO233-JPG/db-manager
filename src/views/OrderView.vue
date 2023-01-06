@@ -100,13 +100,13 @@
           <!-- <el-input v-model="addForm.orderVin" autocomplete="off" /> -->
           <el-select
             v-model="addForm.orderVin"
-            placeholder="please select your zone"
+            placeholder="选择车辆"
             style="width: 100%"
           >
             <el-option
               v-for="item in addFormOrderVins"
               :key="item.carVin"
-              :label="item.modelDetail.modelName"
+              :label="item.carVin"
               :value="item.carVin"
             />
           </el-select>
@@ -291,12 +291,12 @@ const confirmAdd = async () => {
   addFormVisible.value = false;
   await store.add(addForm.value);
   addForm.value = {
-    orderId: 0,
-    orderStaffId: 0,
-    orderCustomerPhone: "0",
-    orderMoney: 0,
-    orderVin: 0,
-    orderCustomerName: "0",
+    orderId: undefined,
+    orderStaffId: undefined,
+    orderCustomerPhone: "",
+    orderMoney: undefined,
+    orderVin: undefined,
+    orderCustomerName: "",
   };
 };
 </script>
