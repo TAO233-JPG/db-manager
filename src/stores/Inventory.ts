@@ -56,7 +56,7 @@ export const useInventoryStore = defineStore("inventory", () => {
   const get = async (id: number) => {
     try {
       if (userStore.auth === 1) {
-        const result: InventoryT[] = await get_all_inventory<InventoryT[]>(id);
+        const result: InventoryT[] = await get_all_inventory<InventoryT[]>();
         inventory.value = result;
       } else {
         const result: InventoryT[] = await get_inventory<InventoryT[]>(id);

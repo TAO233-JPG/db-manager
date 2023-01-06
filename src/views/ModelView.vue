@@ -19,9 +19,12 @@
     <el-table-column fixed prop="modelName" label="模型名字" />
     <el-table-column prop="brand.brandName" label="品牌名字" />
 
-    <el-table-column label="Operations" fixed="right">
+    <el-table-column label="Operations" fixed="right" width="300">
       <template #default="scope">
         <el-button size="small" @click="handleEdit(scope.row)">Edit</el-button>
+        <el-button size="small" @click="handleOption(scope.row)"
+          >模型选项管理</el-button
+        >
         <el-button size="small" type="danger" @click="handleDelete(scope.row)"
           >Delete</el-button
         >
@@ -42,7 +45,7 @@
   </div>
   <!-- 编辑 -->
   <div>
-    <el-dialog v-model="dialogFormVisible" title="编辑订单" center>
+    <el-dialog v-model="dialogFormVisible" title="编辑" center>
       <el-form :model="form" label-width="140px" style="max-width: 580px">
         <el-form-item label="模型编号">
           <el-input v-model="form.modelId" autocomplete="off" disabled />
@@ -91,12 +94,37 @@
       </template>
     </el-dialog>
   </div>
+
+  <!-- 模型选项管理 -->
+  <div>
+    <el-dialog v-model="optionFormVisible" title="修改选项" center>
+      <el-checkbox-group v-model="checkedIDOption">
+        <el-checkbox
+          v-for="op in options"
+          :key="op.optionId"
+          :label="op.optionId"
+          >{{ optionName[op.optionId] }}</el-checkbox
+        >
+      </el-checkbox-group>
+      <template #footer>
+        <span class="dialog-footer">
+          <el-button @click="optionFormVisible = false">取消</el-button>
+          <el-button type="primary" @click="confirmHandleOption">
+            确定修改
+          </el-button>
+        </span>
+      </template>
+    </el-dialog>
+  </div>
 </template>
 
 <script lang="ts" setup>
 import { computed, onBeforeUnmount, onMounted, ref } from "vue";
 import { throttle } from "lodash";
 import { useModelDetailStore, type ModelDetailT } from "@/stores/modelDetail";
+import { useProductStore, type AllOptionT } from "@/stores/product";
+
+const productStore = useProductStore();
 
 const tableHeight = ref(500);
 
@@ -203,6 +231,33 @@ const confirmAdd = async () => {
     modelBrandId: undefined,
     brand: { brandId: undefined, brandName: "" },
   };
+};
+
+/* 模型选项管理 */
+const optionFormVisible = ref(false);
+const checkedIDOption = ref<number[]>([]);
+const options = ref<AllOptionT[]>([]);
+const modelId = ref(0);
+const optionName = computed(() => {
+  const res: { [key in number]: string } = {};
+  options.value.forEach((item) => {
+    res[item.optionId] = item.optionName;
+  });
+  return res;
+});
+const handleOption = async (params: ModelDetailT) => {
+  optionFormVisible.value = true;
+  options.value = await productStore.getAllOption();
+  const checked = await store.getModelOptions(params.modelId as number);
+  checkedIDOption.value = checked.map((item) => item.optionId);
+  modelId.value = params.modelId as number;
+  console.log(optionName, "optionList", checkedIDOption, options);
+};
+
+const confirmHandleOption = async () => {
+  console.log(checkedIDOption);
+  const res = await store.setModelOptions(modelId.value, checkedIDOption.value);
+  optionFormVisible.value = false;
 };
 </script>
 

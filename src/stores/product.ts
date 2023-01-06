@@ -147,12 +147,16 @@ export const useProductStore = defineStore("product", () => {
 
   /* AllOptionT */
   const getAllOption = async () => {
+    // return allOption.value;
+
     try {
       const result = await get_options<AllOptionT[]>();
       allOption.value = result;
     } catch (error) {
       console.log(error);
     }
+
+    return allOption.value;
   };
   const delOption = async (id: number) => {
     try {

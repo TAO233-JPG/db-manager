@@ -1,7 +1,13 @@
 import { ref } from "vue";
 import { defineStore } from "pinia";
 import type { brandT } from "./brand";
-import { delete_model, get_models, set_model } from "@/api";
+import {
+  delete_model,
+  get_models,
+  get_model_options,
+  set_model,
+  set_model_options,
+} from "@/api";
 
 export type ModelDetailT = {
   modelId?: number;
@@ -67,5 +73,27 @@ export const useModelDetailStore = defineStore("modelDetail", () => {
     models.value.push(data);
   };
 
-  return { models, get, del, edit, add };
+  const getModelOptions = async (id: number) => {
+    try {
+      const result = await get_model_options<any[]>(id);
+      return result;
+    } catch (error) {
+      console.log(error);
+    }
+    return [
+      { optionId: 2, optionName: "innt222" },
+      { optionId: 3, optionName: "252" },
+    ];
+  };
+
+  // 更新模型的选项
+  const setModelOptions = async (id: number, optionIds: number[]) => {
+    try {
+      const result = await set_model_options<any[]>(id, optionIds);
+      return result;
+    } catch (error) {
+      console.log(error);
+    }
+  };
+  return { models, get, del, edit, add, getModelOptions, setModelOptions };
 });

@@ -146,6 +146,21 @@ export const delete_model = async <T = any>(id: number): Promise<T> => {
   const result = await instance.delete(`/model/${id}`);
   return result.data;
 };
+/* 查询模型的所有选项 */
+export const get_model_options = async <T = any>(id: number): Promise<T> => {
+  const result = await instance.get(`/model/${id}/option`);
+  return result.data;
+};
+export const set_model_options = async <T = any>(
+  id: number,
+  optionIds: number[]
+): Promise<T> => {
+  const result = await instance.post(`/model/${id}/option`, {
+    modelId: id,
+    ids: optionIds,
+  });
+  return result.data;
+};
 
 /* 库存管理 */
 export const get_all_inventory = async <T = any>(): Promise<T> => {

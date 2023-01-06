@@ -41,7 +41,7 @@
   </div>
   <!-- 编辑 -->
   <div>
-    <el-dialog v-model="dialogFormVisible" title="编辑订单" center>
+    <el-dialog v-model="dialogFormVisible" title="编辑" center>
       <el-form :model="form" label-width="140px" style="max-width: 580px">
         <el-form-item label="品牌编号">
           <el-input v-model="form.brandId" autocomplete="off" disabled />
