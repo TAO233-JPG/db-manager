@@ -238,6 +238,7 @@ const addForm = ref<ProductT>({
   carVin: 0,
   carDistributorId: undefined,
   carModelId: undefined,
+  distributor: {},
 });
 const add = () => {
   addFormVisible.value = true;
@@ -281,10 +282,12 @@ const confirmAdd = async () => {
   //   };
   // }
 
-  if (res) {
-    carVin.value = res?.carVin ?? 0;
-    await handleOption(res!);
-  }
+  // if (res) {
+  //   carVin.value = res?.carVin ?? 0;
+  //   await handleOption(res!);
+  // }
+
+  await store.get();
 };
 
 /* 修改选项 */
