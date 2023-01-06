@@ -15,7 +15,7 @@
     :header-row-style="{ backgroundColor: '#f5f7fa' }"
   >
     <el-table-column type="index" width="50" fixed />
-    <!-- <el-table-column fixed prop="carVin" label="车辆标识号" /> -->
+    <el-table-column fixed prop="carVin" label="车辆标识号" />
     <el-table-column prop="distributor.distributorName" label="经销商名称" />
     <el-table-column prop="modelDetail.modelName" label="品牌名称" />
     <el-table-column prop="modelDetail.brand.brandName" label="模型名称" />
