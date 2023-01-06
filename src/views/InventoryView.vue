@@ -16,8 +16,8 @@
   >
     <el-table-column type="index" width="50" fixed />
     <el-table-column fixed prop="inventoryId" label="库存编号" />
-    <el-table-column prop="inventoryModelId" label="模型编号" />
-    <el-table-column prop="inventoryDistributorId" label="经销商编号" />
+    <el-table-column prop="distributor.distributorName" label="经销商" />
+    <el-table-column prop="modelDetail.modelName" label="模型" />
     <el-table-column prop="inventoryCount" label="库存数量" />
     <el-table-column label="Operations" fixed="right">
       <template #default="scope">

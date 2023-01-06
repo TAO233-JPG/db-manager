@@ -7,6 +7,8 @@ import {
   set_inventory,
 } from "@/api";
 import { useUserStore } from "./user";
+import type { DistributorT } from "./distributor";
+import type { ModelDetailT } from "./modelDetail";
 
 export type InventoryT = {
   /**
@@ -28,6 +30,9 @@ export type InventoryT = {
    * 库存数量
    */
   inventoryCount: number;
+
+  distributor?: DistributorT;
+  modelDetail?: ModelDetailT;
 };
 const userStore = useUserStore();
 // 产品管理
@@ -38,18 +43,60 @@ export const useInventoryStore = defineStore("inventory", () => {
       inventoryModelId: 9,
       inventoryDistributorId: 9,
       inventoryCount: 9,
+      distributor: {
+        distributorId: 1,
+        distributorName: "distributorName",
+        distributorUsername: "distributorUsername",
+        distributorPhone: "distributorPhone",
+        distributorPassword: "distributorPassword",
+        distributorAddress: "distributorAddress",
+      },
+      modelDetail: {
+        modelId: 111,
+        modelName: "111name",
+        modelBrandId: 111,
+        brand: { brandId: 1, brandName: "211" },
+      },
     },
     {
       inventoryId: 19,
       inventoryModelId: 19,
       inventoryDistributorId: 19,
       inventoryCount: 19,
+      distributor: {
+        distributorId: 1,
+        distributorName: "distributorName",
+        distributorUsername: "distributorUsername",
+        distributorPhone: "distributorPhone",
+        distributorPassword: "distributorPassword",
+        distributorAddress: "distributorAddress",
+      },
+      modelDetail: {
+        modelId: 111,
+        modelName: "111",
+        modelBrandId: 111,
+        brand: { brandId: 1, brandName: "211" },
+      },
     },
     {
       inventoryId: 222239,
       inventoryModelId: 2239,
       inventoryDistributorId: 2239,
       inventoryCount: 9223,
+      distributor: {
+        distributorId: 1,
+        distributorName: "distributorName",
+        distributorUsername: "distributorUsername",
+        distributorPhone: "distributorPhone",
+        distributorPassword: "distributorPassword",
+        distributorAddress: "distributorAddress",
+      },
+      modelDetail: {
+        modelId: 111,
+        modelName: "111",
+        modelBrandId: 111,
+        brand: { brandId: 1, brandName: "211" },
+      },
     },
   ]);
 

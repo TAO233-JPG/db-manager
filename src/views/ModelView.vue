@@ -246,9 +246,9 @@ const optionName = computed(() => {
   return res;
 });
 const handleOption = async (params: ModelDetailT) => {
-  optionFormVisible.value = true;
   options.value = await productStore.getAllOption();
   const checked = await store.getModelOptions(params.modelId as number);
+  optionFormVisible.value = true;
   checkedIDOption.value = checked.map((item) => item.optionId);
   modelId.value = params.modelId as number;
   console.log(optionName, "optionList", checkedIDOption, options);
