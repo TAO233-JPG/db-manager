@@ -15,7 +15,7 @@
     :header-row-style="{ backgroundColor: '#f5f7fa' }"
   >
     <el-table-column type="index" width="50" fixed />
-    <el-table-column fixed prop="modelId" label="模型编号" />
+    <!-- <el-table-column fixed prop="modelId" label="模型编号" /> -->
     <el-table-column fixed prop="modelName" label="模型名字" />
     <el-table-column prop="brand.brandName" label="品牌名字" />
 
@@ -71,20 +71,32 @@
 
   <!-- 新增 -->
   <div>
-    <el-dialog v-model="addFormVisible" title="新增品牌" center>
+    <el-dialog v-model="addFormVisible" title="新增模型" center>
       <el-form :model="addForm" label-width="140px" style="max-width: 580px">
-        <el-form-item label="模型编号">
+        <!-- <el-form-item label="模型编号">
           <el-input v-model="addForm.modelId" autocomplete="off" />
-        </el-form-item>
+        </el-form-item> -->
         <el-form-item label="模型名字">
           <el-input v-model="addForm.modelName" autocomplete="off" />
         </el-form-item>
         <el-form-item label="品牌编号">
-          <el-input v-model="addForm.brand.brandId" autocomplete="off" />
+          <!-- <el-input v-model="addForm.brand.brandId" autocomplete="off" /> -->
+          <el-select
+            v-model="addForm.brand.brandId"
+            placeholder="please select your zone"
+            style="width: 100%"
+          >
+            <el-option
+              v-for="item in brands"
+              :key="item.brandId"
+              :label="item.brandName"
+              :value="item.brandId"
+            />
+          </el-select>
         </el-form-item>
-        <el-form-item label="品牌名字">
+        <!-- <el-form-item label="品牌名字">
           <el-input v-model="addForm.brand.brandName" autocomplete="off" />
-        </el-form-item>
+        </el-form-item> -->
       </el-form>
       <template #footer>
         <span class="dialog-footer">
@@ -123,9 +135,10 @@ import { computed, onBeforeUnmount, onMounted, ref } from "vue";
 import { throttle } from "lodash";
 import { useModelDetailStore, type ModelDetailT } from "@/stores/modelDetail";
 import { useProductStore, type AllOptionT } from "@/stores/product";
+import { useBrandStore, type brandT } from "@/stores/brand";
 
 const productStore = useProductStore();
-
+const brandStore = useBrandStore();
 const tableHeight = ref(500);
 
 function setHeight() {
@@ -217,14 +230,23 @@ const addForm = ref<ModelDetailT>({
   modelBrandId: undefined,
   brand: { brandId: undefined, brandName: "" },
 });
-const add = () => {
+const brands = ref<brandT[]>();
+const add = async () => {
   addFormVisible.value = true;
+  await brandStore.get();
+  brands.value = brandStore.brands;
 };
 
 const confirmAdd = async () => {
   addFormVisible.value = false;
   // addForm.value.modelId = tableData.value.length + 1;
+  console.log(brands.value, "22", addForm.value);
+
+  addForm.value.brand.brandName = brands.value?.filter(
+    (item) => item.brandId == addForm.value.brand?.brandId
+  )[0].brandName;
   await store.add(addForm.value);
+
   addForm.value = {
     modelId: undefined,
     modelName: "",
