@@ -114,7 +114,6 @@ export const set_product_option = async <T = any>(
   params: number[]
 ): Promise<T> => {
   const result = await instance.put(`/car/${id}/option/update`, {
-    id,
     optionId: params,
   });
   return result.data;
