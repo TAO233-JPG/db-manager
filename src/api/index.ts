@@ -156,7 +156,6 @@ export const set_model_options = async <T = any>(
   optionIds: number[]
 ): Promise<T> => {
   const result = await instance.put(`/model/${id}/option`, {
-    modelId: id,
     ids: optionIds,
   });
   return result.data;
