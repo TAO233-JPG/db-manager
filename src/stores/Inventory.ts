@@ -47,9 +47,9 @@ export const useInventoryStore = defineStore("inventory", () => {
     },
   ]);
 
-  const get = async () => {
+  const get = async (id: number) => {
     try {
-      const result = await get_inventory<InventoryT[]>();
+      const result = await get_inventory<InventoryT[]>(id);
       inventory.value = result;
     } catch (error) {
       console.log(error);

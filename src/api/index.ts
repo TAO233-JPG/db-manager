@@ -148,8 +148,8 @@ export const delete_model = async <T = any>(id: number): Promise<T> => {
 };
 
 /* 库存管理 */
-export const get_inventory = async <T = any>(): Promise<T> => {
-  const result = await instance.get(`/inventory`);
+export const get_inventory = async <T = any>(id: number): Promise<T> => {
+  const result = await instance.get(`/inventory/distributor/${id}`);
   return result.data;
 };
 export const set_inventory = async <T = any>(

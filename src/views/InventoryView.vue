@@ -80,6 +80,7 @@
 import { computed, onBeforeUnmount, onMounted, ref } from "vue";
 import { throttle } from "lodash";
 import { useInventoryStore, type InventoryT } from "@/stores/Inventory";
+import { useUserStore } from "@/stores/user";
 
 const tableHeight = ref(500);
 
@@ -98,9 +99,10 @@ onBeforeUnmount(() => {
 });
 
 const store = useInventoryStore();
-
+const userStore = useUserStore();
 onMounted(async () => {
-  await store.get();
+  const id = (userStore.user?.distributorId as number) ?? 99;
+  await store.get(id);
 });
 const tableData = computed(() => {
   return store.inventory;
