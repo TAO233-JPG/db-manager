@@ -1,22 +1,35 @@
-import { ref, computed } from "vue";
+import { ref } from "vue";
 import { defineStore } from "pinia";
-import { delete_brand, get_brands, set_brand } from "@/api";
 import type { brandT } from "./brand";
+import { delete_model, get_models, set_model } from "@/api";
 
-export type ModelDetailT = Partial<{
-  modelId: number;
-  modelName: string;
-  modelBrandId: number;
-  brand: brandT;
-}>;
+export type ModelDetailT = {
+  modelId?: number;
+  modelName?: string;
+  modelBrandId?: number;
+  brand?: brandT;
+};
 
 export const useModelDetailStore = defineStore("modelDetail", () => {
-  const brands = ref<brandT[]>([{ brandId: 1, brandName: "211" }]);
+  const models = ref<ModelDetailT[]>([
+    {
+      modelId: 111,
+      modelName: "111",
+      modelBrandId: 111,
+      brand: { brandId: 1, brandName: "211" },
+    },
+    {
+      modelId: 22,
+      modelName: "11221",
+      modelBrandId: 11221,
+      brand: { brandId: 21, brandName: "2112" },
+    },
+  ]);
 
   const get = async () => {
     try {
-      const result = await get_brands<brandT[]>();
-      brands.value = result;
+      const result = await get_models<ModelDetailT[]>();
+      models.value = result;
     } catch (error) {
       console.log(error);
     }
@@ -24,35 +37,35 @@ export const useModelDetailStore = defineStore("modelDetail", () => {
 
   const del = async (id: number) => {
     try {
-      await delete_brand(id);
+      await delete_model(id);
     } catch (error) {
       console.log(error);
     }
-    brands.value = brands.value.filter((item) => item.brandId !== id);
+    models.value = models.value.filter((item) => item.modelId !== id);
   };
 
-  const edit = async (data: brandT) => {
+  const edit = async (data: ModelDetailT) => {
     try {
-      await set_brand(data);
+      await set_model(data);
     } catch (e) {
       console.log(e);
     }
-    const idx = brands.value.findIndex((element) => {
-      return element.brandId === data.brandId;
+    const idx = models.value.findIndex((element) => {
+      return element.modelId === data.modelId;
     });
     console.log(data);
 
-    brands.value[idx] = data;
+    models.value[idx] = data;
   };
 
-  const add = async (data: brandT) => {
+  const add = async (data: ModelDetailT) => {
     try {
-      await set_brand(data);
+      await set_model(data);
     } catch (error) {
       console.log(error);
     }
-    brands.value.push(data);
+    models.value.push(data);
   };
 
-  return { brands, get, del, edit, add };
+  return { models, get, del, edit, add };
 });

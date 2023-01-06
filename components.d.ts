@@ -36,6 +36,7 @@ declare module '@vue/runtime-core' {
     HomeView: typeof import('./src/views/HomeView.vue')['default']
     InventoryView: typeof import('./src/views/InventoryView.vue')['default']
     LoginView: typeof import('./src/views/LoginView.vue')['default']
+    ModelView: typeof import('./src/views/ModelView.vue')['default']
     'NavMenu.component': typeof import('./src/components/nav/NavMenu.component.vue')['default']
     OrderView: typeof import('./src/views/OrderView.vue')['default']
     ProductView: typeof import('./src/views/ProductView.vue')['default']

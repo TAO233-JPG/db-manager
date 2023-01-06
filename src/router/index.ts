@@ -48,6 +48,16 @@ const router = createRouter({
           },
         },
         {
+          path: "model",
+          name: "model",
+          component: () => import("../views/ModelView.vue"),
+          meta: {
+            icon: "Document",
+            title: "品牌模型管理",
+            show: ["管理员"],
+          },
+        },
+        {
           path: "Inventory",
           name: "Inventory",
           component: () => import("../views/InventoryView.vue"),

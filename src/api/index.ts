@@ -1,6 +1,7 @@
 import type { brandT } from "@/stores/brand";
 import type { DistributorT } from "@/stores/distributor";
 import type { InventoryT } from "@/stores/Inventory";
+import type { ModelDetailT } from "@/stores/modelDetail";
 import type { OrderT } from "@/stores/order";
 import type { ProductT } from "@/stores/product";
 import type { StaffT } from "@/stores/staff";
@@ -117,6 +118,20 @@ export const set_product_option = async <T = any>(
 
 export const delete_product = async <T = any>(id: number): Promise<T> => {
   const result = await instance.delete(`/car/${id}`);
+  return result.data;
+};
+
+/* 模型 */
+export const get_models = async <T = any>(): Promise<T> => {
+  const result = await instance.get(`/model`);
+  return result.data;
+};
+export const set_model = async <T = any>(params: ModelDetailT): Promise<T> => {
+  const result = await instance.post("/model", params);
+  return result.data;
+};
+export const delete_model = async <T = any>(id: number): Promise<T> => {
+  const result = await instance.delete(`/model/${id}`);
   return result.data;
 };
 
