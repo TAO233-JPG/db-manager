@@ -120,6 +120,7 @@ export const useProductStore = defineStore("product", () => {
       console.log(error);
     }
     cars.value.push(data);
+    // await get();
     return res;
   };
 

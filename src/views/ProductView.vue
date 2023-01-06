@@ -15,7 +15,7 @@
     :header-row-style="{ backgroundColor: '#f5f7fa' }"
   >
     <el-table-column type="index" width="50" fixed />
-    <el-table-column fixed prop="carVin" label="车辆标识号" />
+    <!-- <el-table-column fixed prop="carVin" label="车辆标识号" /> -->
     <el-table-column prop="distributor.distributorName" label="经销商名称" />
     <el-table-column prop="modelDetail.modelName" label="品牌名称" />
     <el-table-column prop="modelDetail.brand.brandName" label="模型名称" />
@@ -73,14 +73,39 @@
   <div>
     <el-dialog v-model="addFormVisible" title="新增产品" center>
       <el-form :model="addForm" label-width="140px" style="max-width: 580px">
-        <el-form-item label="车辆标识号">
+        <!-- <el-form-item label="车辆标识号">
           <el-input v-model="addForm.carVin" autocomplete="off" />
-        </el-form-item>
-        <el-form-item label="经销商编号">
-          <el-input v-model="addForm.carDistributorId" autocomplete="off" />
+        </el-form-item> -->
+        <el-form-item label="经销商">
+          <!-- <el-input v-model="addForm.carDistributorId" autocomplete="off" /> -->
+          <el-select
+            v-model="addForm.carDistributorId"
+            placeholder="please select your zone"
+            style="width: 100%"
+          >
+            <el-option
+              v-for="item in distributors"
+              :key="item.distributorId"
+              :label="item.distributorName"
+              :value="item.distributorId"
+            />
+          </el-select>
         </el-form-item>
         <el-form-item label="车辆所属模型">
-          <el-input v-model="addForm.carModelId" autocomplete="off" />
+          <!-- <el-input v-model="addForm.carModelId" autocomplete="off" /> -->
+
+          <el-select
+            v-model="addForm.carModelId"
+            placeholder="please select your zone"
+            style="width: 100%"
+          >
+            <el-option
+              v-for="item in model"
+              :key="item.modelId"
+              :label="item.modelName"
+              :value="item.modelId!"
+            />
+          </el-select>
         </el-form-item>
       </el-form>
       <template #footer>
@@ -116,6 +141,11 @@
 import { computed, onBeforeUnmount, onMounted, ref } from "vue";
 import { throttle } from "lodash";
 import { useProductStore, type OptionT, type ProductT } from "@/stores/product";
+import { useDistributorStore, type DistributorT } from "@/stores/distributor";
+import { useModelDetailStore, type ModelDetailT } from "@/stores/modelDetail";
+
+const distributorStore = useDistributorStore();
+const modelStore = useModelDetailStore();
 
 const tableHeight = ref(500);
 
@@ -137,6 +167,8 @@ const store = useProductStore();
 
 onMounted(async () => {
   await store.get();
+  await distributorStore.getDistributors();
+  await modelStore.get();
 });
 const tableData = computed(() => {
   return store.cars;
@@ -200,22 +232,28 @@ const confirmEdit = async () => {
 
 /* 新增 */
 const addFormVisible = ref(false);
+const distributors = ref<DistributorT[]>([]);
+const model = ref<ModelDetailT[]>([]);
 const addForm = ref<ProductT>({
   carVin: 0,
-  carDistributorId: 0,
-  carModelId: 0,
+  carDistributorId: undefined,
+  carModelId: undefined,
 });
 const add = () => {
   addFormVisible.value = true;
+  distributors.value = distributorStore.distributors;
+  model.value = modelStore.models;
 };
 
 const confirmAdd = async () => {
+  console.log(addForm.value, "add product");
+
   let res = await store.add(addForm.value);
   addFormVisible.value = false;
   addForm.value = {
     carVin: 0,
-    carDistributorId: 0,
-    carModelId: 0,
+    carDistributorId: undefined,
+    carModelId: undefined,
   };
 
   // if (res === null) {
@@ -242,6 +280,7 @@ const confirmAdd = async () => {
   //     },
   //   };
   // }
+
   if (res) {
     carVin.value = res?.carVin ?? 0;
     await handleOption(res!);

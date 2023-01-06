@@ -66,7 +66,12 @@ export const useModelDetailStore = defineStore("modelDetail", () => {
 
   const add = async (data: ModelDetailT) => {
     try {
-      await set_model(data);
+      console.log(data, "42378929483");
+      const params = {
+        modelName: data.modelName,
+        modelBrandId: data.brand?.brandId,
+      };
+      await set_model(params);
     } catch (error) {
       console.log(error);
     }
