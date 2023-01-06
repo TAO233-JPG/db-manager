@@ -1,6 +1,12 @@
 import { ref } from "vue";
 import { defineStore } from "pinia";
-import { delete_inventory, get_inventory, set_inventory } from "@/api";
+import {
+  delete_inventory,
+  get_all_inventory,
+  get_inventory,
+  set_inventory,
+} from "@/api";
+import { useUserStore } from "./user";
 
 export type InventoryT = {
   /**
@@ -23,7 +29,7 @@ export type InventoryT = {
    */
   inventoryCount: number;
 };
-
+const userStore = useUserStore();
 // 产品管理
 export const useInventoryStore = defineStore("inventory", () => {
   const inventory = ref<InventoryT[]>([
@@ -49,8 +55,13 @@ export const useInventoryStore = defineStore("inventory", () => {
 
   const get = async (id: number) => {
     try {
-      const result = await get_inventory<InventoryT[]>(id);
-      inventory.value = result;
+      if (userStore.auth === 1) {
+        const result: InventoryT[] = await get_all_inventory<InventoryT[]>(id);
+        inventory.value = result;
+      } else {
+        const result: InventoryT[] = await get_inventory<InventoryT[]>(id);
+        inventory.value = result;
+      }
     } catch (error) {
       console.log(error);
     }

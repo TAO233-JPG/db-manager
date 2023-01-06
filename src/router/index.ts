@@ -74,7 +74,7 @@ const router = createRouter({
           meta: {
             icon: "Document",
             title: "经销商库存管理",
-            show: ["经销商管理员"],
+            show: ["经销商管理员", "管理员"],
           },
         },
         {
