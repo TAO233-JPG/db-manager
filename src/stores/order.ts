@@ -1,6 +1,9 @@
 import { ref } from "vue";
 import { defineStore } from "pinia";
-import { delete_order, get_order, set_order } from "@/api";
+import { delete_order, get_order, set_order, set_order_staff } from "@/api";
+import { useUserStore } from "./user";
+
+const userStore = useUserStore();
 
 export type OrderT = Partial<{
   /**
@@ -96,7 +99,11 @@ export const useOrderStore = defineStore("order", () => {
 
   const add = async (data: OrderT) => {
     try {
-      await set_order(data);
+      if (userStore.auth === 2) {
+        await set_order(data);
+      } else if (userStore.auth === 3) {
+        await set_order_staff(data);
+      }
     } catch (error) {
       console.log(error);
     }

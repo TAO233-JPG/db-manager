@@ -172,6 +172,10 @@ export const set_order = async <T = any>(params: OrderT): Promise<T> => {
   const result = await instance.post("/order", params);
   return result.data;
 };
+export const set_order_staff = async <T = any>(params: OrderT): Promise<T> => {
+  const result = await instance.post("/staff/sale", params);
+  return result.data;
+};
 export const delete_order = async <T = any>(id: number): Promise<T> => {
   const result = await instance.delete(`/order/${id}`);
   return result.data;
