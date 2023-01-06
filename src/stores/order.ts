@@ -107,9 +107,9 @@ export const useOrderStore = defineStore("order", () => {
     } catch (error) {
       console.log(error);
     }
-    if (data.orderId) {
-      staffs.value.push(data);
-    }
+
+    staffs.value.push(data);
+    await get();
   };
 
   return { staffs, get, del, edit, add };

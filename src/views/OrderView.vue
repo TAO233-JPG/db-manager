@@ -15,7 +15,7 @@
     :header-row-style="{ backgroundColor: '#f5f7fa' }"
   >
     <el-table-column type="index" width="50" fixed />
-    <el-table-column fixed prop="orderId" label="订单编号" />
+    <!-- <el-table-column fixed prop="orderId" label="订单编号" /> -->
     <el-table-column fixed prop="orderStaffId" label="订单所属销售人员" />
     <el-table-column prop="orderCustomerPhone" label="顾客电话" />
     <el-table-column prop="orderMoney" label="订单金额" />
