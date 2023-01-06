@@ -22,7 +22,7 @@
     />
     <el-table-column prop="modelDetail.modelName" label="品牌名称" />
     <el-table-column prop="modelDetail.brand.brandName" label="模型名称" />
-    <el-table-column label="Operations" fixed="right">
+    <el-table-column label="Operations" fixed="right" width="400">
       <template #default="scope">
         <el-button size="small" @click="handleEdit(scope.row)">Edit</el-button>
         <el-button size="small" @click="handleOption(scope.row)"
