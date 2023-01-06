@@ -16,11 +16,21 @@
   >
     <el-table-column type="index" width="50" fixed />
     <el-table-column fixed prop="carVin" label="车辆标识号" />
-    <el-table-column prop="carDistributorId" label="经销商编号" />
-    <el-table-column prop="carModelId" label="车辆所属模型" />
+    <el-table-column
+      prop="distributor.distributorUsername"
+      label="经销商名称"
+    />
+    <el-table-column prop="modelDetail.modelName" label="品牌名称" />
+    <el-table-column prop="modelDetail.brand.brandName" label="模型名称" />
     <el-table-column label="Operations" fixed="right">
       <template #default="scope">
         <el-button size="small" @click="handleEdit(scope.row)">Edit</el-button>
+        <el-button size="small" @click="handleOption(scope.row)"
+          >修改选项</el-button
+        >
+        <!-- <el-button size="small" @click="handleOption(scope.row)"
+          >修改选项</el-button
+        > -->
         <el-button size="small" type="danger" @click="handleDelete(scope.row)"
           >Delete</el-button
         >
@@ -84,12 +94,31 @@
       </template>
     </el-dialog>
   </div>
+
+  <!-- 修改选项 -->
+  <div>
+    <el-dialog v-model="optionFormVisible" title="修改选项" center>
+      <el-checkbox-group v-model="checkedIDOption">
+        <el-checkbox v-for="op in optionList" :key="op" :label="op">{{
+          optionName[op]
+        }}</el-checkbox>
+      </el-checkbox-group>
+      <template #footer>
+        <span class="dialog-footer">
+          <el-button @click="optionFormVisible = false">取消</el-button>
+          <el-button type="primary" @click="confirmHandleOption">
+            确定修改
+          </el-button>
+        </span>
+      </template>
+    </el-dialog>
+  </div>
 </template>
 
 <script lang="ts" setup>
 import { computed, onBeforeUnmount, onMounted, ref } from "vue";
 import { throttle } from "lodash";
-import { useProductStore, type ProductT } from "@/stores/product";
+import { useProductStore, type OptionT, type ProductT } from "@/stores/product";
 
 const tableHeight = ref(500);
 
@@ -191,6 +220,42 @@ const confirmAdd = () => {
     carDistributorId: 0,
     carModelId: 0,
   };
+};
+
+/* 修改选项 */
+const optionFormVisible = ref(false);
+const optionList = ref<number[]>([]);
+const checkedIDOption = ref<number[]>([]);
+const options = ref<OptionT[]>([]);
+const carVin = ref<number>(0);
+
+const optionName = computed(() => {
+  const res: { [key in number]: string } = {};
+  options.value.forEach((item) => {
+    res[item.option.optionId] = item.option.optionName;
+  });
+  return res;
+});
+const handleOption = async (params: ProductT) => {
+  optionFormVisible.value = true;
+  carVin.value = params.carVin;
+  options.value = await store.getOption(params.carVin);
+  checkedIDOption.value = options.value
+    .filter((item) => item.choose === 1)
+    .map((item) => item.option.optionId);
+
+  optionList.value = options.value.map((item) => item.option.optionId);
+  console.log(params, "handleOption");
+  console.log(optionName, "optionList", optionList, options);
+};
+
+const confirmHandleOption = async () => {
+  console.log(checkedIDOption);
+  const res = await store.update_car_option(
+    carVin.value,
+    checkedIDOption.value
+  );
+  optionFormVisible.value = false;
 };
 </script>
 

@@ -105,12 +105,13 @@ export const get_product_option = async <T = any>(id: number): Promise<T> => {
 };
 /* 改这个车所具有的选项 */
 export const set_product_option = async <T = any>(
-  params: ProductT
+  id: number,
+  params: number[]
 ): Promise<T> => {
-  const result = await instance.post(
-    `/car/${params.carVin}/option/update`,
-    params
-  );
+  const result = await instance.post(`/car/${id}/option/update`, {
+    id,
+    optionId: params,
+  });
   return result.data;
 };
 

@@ -178,6 +178,7 @@ const add = () => {
 
 const confirmAdd = () => {
   addFormVisible.value = false;
+  addForm.value.brandId = tableData.value.length + 1;
   store.add(addForm.value);
   addForm.value = {
     brandId: undefined,
