@@ -100,14 +100,16 @@ export const useOrderStore = defineStore("order", () => {
   const add = async (data: OrderT) => {
     try {
       if (userStore.auth === 2) {
-        await set_order(data);
+        data = await set_order(data);
       } else if (userStore.auth === 3) {
-        await set_order_staff(data);
+        data = await set_order_staff(data);
       }
     } catch (error) {
       console.log(error);
     }
-    staffs.value.push(data);
+    if (data.orderId) {
+      staffs.value.push(data);
+    }
   };
 
   return { staffs, get, del, edit, add };

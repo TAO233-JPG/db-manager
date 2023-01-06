@@ -282,9 +282,9 @@ const add = async () => {
   addFormOrderVins.value = await get_car<any>(staffDistributorId);
 };
 
-const confirmAdd = () => {
+const confirmAdd = async () => {
   addFormVisible.value = false;
-  store.add(addForm.value);
+  await store.add(addForm.value);
   addForm.value = {
     orderId: 0,
     orderStaffId: 0,
