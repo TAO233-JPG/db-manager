@@ -71,7 +71,7 @@
 
   <!-- 新增产品 -->
   <div>
-    <el-dialog v-model="addFormVisible" title="新增经销商" center>
+    <el-dialog v-model="addFormVisible" title="新增产品" center>
       <el-form :model="addForm" label-width="140px" style="max-width: 580px">
         <el-form-item label="车辆标识号">
           <el-input v-model="addForm.carVin" autocomplete="off" />
