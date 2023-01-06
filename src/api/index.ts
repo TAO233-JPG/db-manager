@@ -3,7 +3,7 @@ import type { DistributorT } from "@/stores/distributor";
 import type { InventoryT } from "@/stores/Inventory";
 import type { ModelDetailT } from "@/stores/modelDetail";
 import type { OrderT } from "@/stores/order";
-import type { ProductT } from "@/stores/product";
+import type { AllOptionT, OptionT, ProductT } from "@/stores/product";
 import type { StaffT } from "@/stores/staff";
 import instance from "./instance";
 
@@ -104,6 +104,10 @@ export const get_product_option = async <T = any>(id: number): Promise<T> => {
   const result = await instance.get(`/car/${id}/option`);
   return result.data;
 };
+export const delete_product = async <T = any>(id: number): Promise<T> => {
+  const result = await instance.delete(`/car/${id}`);
+  return result.data;
+};
 /* 改这个车所具有的选项 */
 export const set_product_option = async <T = any>(
   id: number,
@@ -116,8 +120,16 @@ export const set_product_option = async <T = any>(
   return result.data;
 };
 
-export const delete_product = async <T = any>(id: number): Promise<T> => {
-  const result = await instance.delete(`/car/${id}`);
+export const get_options = async <T = any>(): Promise<T> => {
+  const result = await instance.get(`/option`);
+  return result.data;
+};
+export const set_option = async <T = any>(params: AllOptionT): Promise<T> => {
+  const result = await instance.post("/option", params);
+  return result.data;
+};
+export const delete_option = async <T = any>(id: number): Promise<T> => {
+  const result = await instance.delete(`/option/${id}`);
   return result.data;
 };
 

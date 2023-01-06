@@ -58,6 +58,16 @@ const router = createRouter({
           },
         },
         {
+          path: "option",
+          name: "option",
+          component: () => import("../views/OptionView.vue"),
+          meta: {
+            icon: "Document",
+            title: "选项管理",
+            show: ["管理员"],
+          },
+        },
+        {
           path: "Inventory",
           name: "Inventory",
           component: () => import("../views/InventoryView.vue"),

@@ -1,9 +1,12 @@
 import { ref } from "vue";
 import { defineStore } from "pinia";
 import {
+  delete_option,
   delete_product,
+  get_options,
   get_product,
   get_product_option,
+  set_option,
   set_product,
   set_product_option,
 } from "@/api";
@@ -36,7 +39,10 @@ export type OptionT = {
   };
   choose?: number;
 };
-
+export type AllOptionT = {
+  optionId: number;
+  optionName: string;
+};
 // 产品管理
 export const useProductStore = defineStore("product", () => {
   const cars = ref<ProductT[]>([
@@ -67,6 +73,11 @@ export const useProductStore = defineStore("product", () => {
     { option: { optionId: 2, optionName: "innt222" }, choose: 1 },
     { option: { optionId: 1, optionName: "11" }, choose: 1 },
     { option: { optionId: 3, optionName: "252" }, choose: 1 },
+  ]);
+  const allOption = ref<AllOptionT[]>([
+    { optionId: 2, optionName: "innt222" },
+    { optionId: 1, optionName: "11" },
+    { optionId: 3, optionName: "252" },
   ]);
 
   const get = async () => {
@@ -131,6 +142,48 @@ export const useProductStore = defineStore("product", () => {
     const res = await set_product_option(id, optionId);
     console.log(res, "update_car_option");
   };
+
+  /* AllOptionT */
+  const getAllOption = async () => {
+    try {
+      const result = await get_options<AllOptionT[]>();
+      allOption.value = result;
+    } catch (error) {
+      console.log(error);
+    }
+  };
+  const delOption = async (id: number) => {
+    try {
+      await delete_option(id);
+    } catch (error) {
+      console.log(error);
+    }
+    allOption.value = allOption.value.filter((item) => item.optionId !== id);
+  };
+
+  const editOption = async (data: AllOptionT) => {
+    try {
+      await set_option(data);
+    } catch (e) {
+      console.log(e);
+    }
+    const idx = option.value.findIndex((element) => {
+      return element.option.optionId === data.optionId;
+    });
+    console.log(data);
+
+    allOption.value[idx] = data;
+  };
+
+  const addOption = async (data: AllOptionT) => {
+    try {
+      await set_option(data);
+    } catch (error) {
+      console.log(error);
+    }
+    allOption.value.push(data);
+  };
+
   return {
     cars,
     get,
@@ -139,5 +192,11 @@ export const useProductStore = defineStore("product", () => {
     add,
     getOption,
     update_car_option,
+
+    allOption,
+    delOption,
+    editOption,
+    addOption,
+    getAllOption,
   };
 });
