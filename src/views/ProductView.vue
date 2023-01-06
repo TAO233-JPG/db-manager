@@ -212,14 +212,43 @@ const add = () => {
   addFormVisible.value = true;
 };
 
-const confirmAdd = () => {
+const confirmAdd = async () => {
+  let res = await store.add(addForm.value);
   addFormVisible.value = false;
-  store.add(addForm.value);
   addForm.value = {
     carVin: 0,
     carDistributorId: 0,
     carModelId: 0,
   };
+
+  // if (res === null) {
+  //   res = {
+  //     carVin: 12777,
+  //     carDistributorId: 1772,
+  //     carModelId: 17772,
+  //     modelDetail: {
+  //       modelName: "1-177",
+  //       modelId: 11,
+  //       modelBrandId: 1772,
+  //       brand: {
+  //         brandId: 2772,
+  //         brandName: "1777",
+  //       },
+  //     },
+  //     distributor: {
+  //       distributorId: 177,
+  //       distributorName: "distributor77Name",
+  //       distributorUsername: "distributo77rUsername",
+  //       distributorPhone: "distributorPh77one",
+  //       distributorPassword: "distributor77Password",
+  //       distributorAddress: "distributorA77ddress",
+  //     },
+  //   };
+  // }
+  if (res) {
+    carVin.value = res?.carVin ?? 0;
+    await handleOption(res!);
+  }
 };
 
 /* 修改选项 */

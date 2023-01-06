@@ -113,12 +113,14 @@ export const useProductStore = defineStore("product", () => {
   };
 
   const add = async (data: ProductT) => {
+    let res: ProductT | null = null;
     try {
-      await set_product(data);
+      res = await set_product(data);
     } catch (error) {
       console.log(error);
     }
     cars.value.push(data);
+    return res;
   };
 
   const getOption = async (id: number) => {
