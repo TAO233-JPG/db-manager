@@ -113,9 +113,10 @@ export const set_product_option = async <T = any>(
   id: number,
   params: number[]
 ): Promise<T> => {
-  const result = await instance.put(`/car/${id}/option/update`, {
-    optionId: params,
-  });
+  // const result = await instance.put(`/car/${id}/option/update`, {
+  //   optionId: params,
+  // });
+  const result = await instance.put(`/car/${id}/option/update`, params);
   return result.data;
 };
 
@@ -154,9 +155,10 @@ export const set_model_options = async <T = any>(
   id: number,
   optionIds: number[]
 ): Promise<T> => {
-  const result = await instance.put(`/model/${id}/option`, {
-    ids: optionIds,
-  });
+  // const result = await instance.put(`/model/${id}/option`, {
+  //   ids: optionIds,
+  // });
+  const result = await instance.put(`/model/${id}/option`, optionIds);
   return result.data;
 };
 
