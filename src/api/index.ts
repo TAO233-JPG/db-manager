@@ -184,3 +184,10 @@ export const delete_order = async <T = any>(id: number): Promise<T> => {
   const result = await instance.delete(`/order/${id}`);
   return result.data;
 };
+
+/* 获取汽车OrderVins */
+
+export const get_car = async <T = any>(id: number): Promise<T> => {
+  const result = await instance.get(`/car/distributor/${id}`);
+  return result.data;
+};

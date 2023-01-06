@@ -78,20 +78,36 @@
   <div>
     <el-dialog v-model="addFormVisible" title="新增订单" center>
       <el-form :model="addForm" label-width="140px" style="max-width: 580px">
-        <el-form-item label="订单编号">
+        <!-- <el-form-item label="订单编号">
           <el-input v-model="addForm.orderId" autocomplete="off" />
-        </el-form-item>
+        </el-form-item> -->
         <el-form-item label="订单所属销售人员">
-          <el-input v-model="addForm.orderStaffId" autocomplete="off" />
-        </el-form-item>
-        <el-form-item label="顾客电话">
-          <el-input v-model="addForm.orderCustomerPhone" autocomplete="off" />
+          <el-input
+            v-model="addForm.orderStaffId"
+            autocomplete="off"
+            :disabled="userStore.auth === 3"
+          />
         </el-form-item>
         <el-form-item label="订单金额">
           <el-input v-model="addForm.orderMoney" autocomplete="off" />
         </el-form-item>
         <el-form-item label="车辆标识号">
-          <el-input v-model="addForm.orderVin" autocomplete="off" />
+          <!-- <el-input v-model="addForm.orderVin" autocomplete="off" /> -->
+          <el-select
+            v-model="addForm.orderVin"
+            placeholder="please select your zone"
+            style="width: 100%"
+          >
+            <el-option
+              v-for="item in addFormOrderVins"
+              :key="item.carVin"
+              :label="item.modelDetail.modelName"
+              :value="item.carVin"
+            />
+          </el-select>
+        </el-form-item>
+        <el-form-item label="顾客电话">
+          <el-input v-model="addForm.orderCustomerPhone" autocomplete="off" />
         </el-form-item>
         <el-form-item label="顾客姓名">
           <el-input v-model="addForm.orderCustomerName" autocomplete="off" />
@@ -111,6 +127,10 @@
 import { computed, onBeforeUnmount, onMounted, ref } from "vue";
 import { throttle } from "lodash";
 import { useOrderStore, type OrderT } from "@/stores/order";
+import { useUserStore } from "@/stores/user";
+import { get_car } from "@/api";
+
+const userStore = useUserStore();
 
 const tableHeight = ref(500);
 
@@ -198,6 +218,52 @@ const confirmEdit = async () => {
 };
 
 /* 新增 */
+const addFormOrderVins = ref<any[]>([
+  {
+    carVin: 12,
+    carDistributorId: 123,
+    carModelId: 12,
+    modelDetail: {
+      modelName: "123-1",
+      modelId: 11,
+      modelBrandId: 12,
+      brand: {
+        brandId: 22,
+        brandName: "1",
+      },
+    },
+    distributor: {
+      distributorId: 1,
+      distributorName: "distributorName",
+      distributorUsername: "distributorUsername",
+      distributorPhone: "distributorPhone",
+      distributorPassword: "distributorPassword",
+      distributorAddress: "distributorAddress",
+    },
+  },
+  {
+    carVin: 1233,
+    carDistributorId: 12,
+    carModelId: 12,
+    modelDetail: {
+      modelName: "1-1",
+      modelId: 11,
+      modelBrandId: 12,
+      brand: {
+        brandId: 22,
+        brandName: "1",
+      },
+    },
+    distributor: {
+      distributorId: 1,
+      distributorName: "distributorName",
+      distributorUsername: "distributorUsername",
+      distributorPhone: "distributorPhone",
+      distributorPassword: "distributorPassword",
+      distributorAddress: "distributorAddress",
+    },
+  },
+]);
 const addFormVisible = ref(false);
 const addForm = ref<OrderT>({
   orderId: undefined,
@@ -207,8 +273,13 @@ const addForm = ref<OrderT>({
   orderVin: undefined,
   orderCustomerName: "",
 });
-const add = () => {
+const add = async () => {
   addFormVisible.value = true;
+  if (userStore.auth === 3) {
+    addForm.value.orderStaffId = userStore.user?.staffId ?? 9999;
+  }
+  const staffDistributorId = userStore.user?.staffDistributorId ?? 888;
+  addFormOrderVins.value = await get_car<any>(staffDistributorId);
 };
 
 const confirmAdd = () => {
